@@ -16,6 +16,7 @@
 
 import datetime
 
+import os
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.core.management.base import BaseCommand, CommandError
@@ -25,40 +26,37 @@ from django.contrib.auth import authenticate
 
 class Command(BaseCommand):
     """
-    Nice and awesome way to print your name in CMD, it doesn't have to be ugly
+    Custom command to list users created through api by the specified user
     """
 
-    help = 'Prints your name when you type it'
+    help = 'Prints list of users created by user specified'
 
     def handle(self, **options):
         username = options.get('username')
-        password = options.get('password')
 
-        if not username or not password:
-            self.stdout.write(self.style.ERROR('Please fill in username and password \n Example: ./manage.py '
-                                               'sample-cmd --username admin --password kibua'))
-        admin = authenticate(username=username[0], password=password[0])
-        if admin:
-            self.stdout.write(self.style.SUCCESS('Welcome {} \n'.format(username[0])))
-            api_user_name = input("Please input username you wish to grant access to creating API User \n")
-            print("creating an account for {} with email and password ".format(api_user_name))
-        else:
-            self.stdout.write(self.style.ERROR('Authentication Failed, Bad Credentials for {} '.format(username[0])))
+        if not username:
+            self.stdout.write(self.style.ERROR(
+                'Please fill in username '
+                ' \n Example: ./manage.py \
+                list-user-rest-api --username admin '
+                ''))
             return
-
         try:
-            user = User.objects.get(username=api_user_name)
-            if getattr(user.userprofile, 'can_create_api_user'):
-                self.stdout.write(
-                    self.style.SUCCESS("User {} already has a permission to create api users".format(api_user_name)))
-            else:
-                setattr(user.userprofile, 'can_create_api_user', True)
-                user.userprofile.save()
-                self.stdout.write(self.style.SUCCESS("User {} can now create api users".format(api_user_name)))
-
+            creator = User.objects.get(username=username[0])
 
         except User.DoesNotExist:
-            raise CommandError('{} Does not exist in our system'.format(api_user_name))
+            raise CommandError('User {} Does not exist in our system'.format(username[0]))
+
+        users = UserProfile.objects.filter(created_by=creator.username)
+        if users.count() > 0:
+            os.system('clear')
+            for profile in users:
+                print("###############################  USERS CREATED BY {} ##########################".format(
+                    username[0]))
+                print("Username : {} \nEmail : {} \n------------------------------------------------------".format(
+                    profile.user.username, profile.user.email))
+        else:
+            print("########## USER {} HAS NOT CREATED ANY USER VIA API #############".format(username[0]))
 
     def add_arguments(self, parser):
         parser.add_argument('--username', nargs='+', type=str)
