@@ -25,10 +25,10 @@ from django.contrib.auth import authenticate
 
 class Command(BaseCommand):
     """
-    Nice and awesome way to print your name in CMD, it doesn't have to be ugly
+    Custom command to restrict creation of users through api
     """
 
-    help = 'Prints your name when you type it'
+    help = 'Granting permission to specified user to create users through api'
 
     def handle(self, **options):
         username = options.get('username')
@@ -36,12 +36,11 @@ class Command(BaseCommand):
 
         if not username or not password:
             self.stdout.write(self.style.ERROR('Please fill in username and password \n Example: ./manage.py '
-                                               'sample-cmd --username admin --password kibua'))
+                                               'grant-user-permission --username admin --password kibua'))
         admin = authenticate(username=username[0], password=password[0])
         if admin:
             self.stdout.write(self.style.SUCCESS('Welcome {} \n'.format(username[0])))
             api_user_name = input("Please input username you wish to grant access to creating API User \n")
-            print("creating an account for {} with email and password ".format(api_user_name))
         else:
             self.stdout.write(self.style.ERROR('Authentication Failed, Bad Credentials for {} '.format(username[0])))
             return
