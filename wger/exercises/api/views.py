@@ -132,6 +132,21 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filter_fields = ('name',)
 
+class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
+    '''
+    API endpoint for fetching exercise resource
+    '''
+    queryset = Exercise.objects.all()
+    serializer_class = Exercise
+    ordering_fields = '__all__'
+    filter_fields = ('name',
+                     'images',
+                     'muscles', 
+                     'category',
+                     'status',
+                     'language',
+                     'description',)
+
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     '''
