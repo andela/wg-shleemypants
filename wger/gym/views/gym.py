@@ -101,20 +101,13 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
         '''
         Return a list with the users, not really a queryset.
         '''
+
+        group = self.request.GET.get('group', None)
         out = {'admins': [],
                'members': [],
                'active_users': [],
-               'inactive_users': []}
-
-        for u in Gym.objects.get_members(self.kwargs['pk']).select_related('usercache'):
-            out['members'].append({'obj': u,
-                                   'last_log': u.usercache.last_activity})
-
-            if u.is_active:
-                out['active_users'].append({'obj':u})
-
-            else:
-                out['inactive_users'].append({'obj':u})
+               'inactive_users': [],
+               'group':group,}
 
         # admins list
         for u in Gym.objects.get_admins(self.kwargs['pk']):
@@ -124,6 +117,21 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
                                             'gym_trainer': u.has_perm('gym.gym_trainer'),
                                             'any_admin': is_any_gym_admin(u)}
                                   })
+
+        if group == "active":
+            for u in Gym.objects.get_active_members(self.kwargs['pk']).select_related('usercache'):
+                out['members'].append({'obj': u,
+                                       'last_log': u.usercache.last_activity})
+        elif group == "inactive":
+            for u in Gym.objects.get_inactive_members(self.kwargs['pk']).select_related('usercache'):
+                out['members'].append({'obj': u,
+                                       'last_log': u.usercache.last_activity})
+
+        else:
+            for u in Gym.objects.get_members(self.kwargs['pk']).select_related('usercache'):
+                out['members'].append({'obj': u,
+                                       'last_log': u.usercache.last_activity})
+
         return out
 
     def get_context_data(self, **kwargs):
