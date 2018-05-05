@@ -18,7 +18,7 @@ lib64/
 parts/
 sdist/
 var/
-wg-venv/
+wg-env/
 *.egg-info/
 .installed.cfg
 *.egg
