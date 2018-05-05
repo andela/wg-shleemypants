@@ -116,8 +116,6 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
             else:
                 out['inactive_users'].append({'obj':u})
 
-            print(out['active_users'])
-
         # admins list
         for u in Gym.objects.get_admins(self.kwargs['pk']):
             out['admins'].append({'obj': u,
@@ -134,7 +132,7 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
         '''
         context = super(GymUserListView, self).get_context_data(**kwargs)
 
-        print(context)
+
 
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
         context['admin_count'] = len(context['object_list']['admins'])
