@@ -15,11 +15,11 @@
 {% block content %}
 {% if perms.gym.manage_gym or perms.gym.gym_trainer %}
     <div>
-        <button class="btn btn-success">All Users</button>
-        <button class="btn btn-primary">Active Users</button>
-        <button class="btn btn-danger">Deactivated Users</button>
+        <a class="btn btn-success" href="members">All Users</a>
+        <a class="btn btn-primary" href="members?group=active">Active Users</a>
+        <a class="btn btn-danger" href="members?group=inactive">Deactivated Users</a>
     </div>
-    {% include 'gym/active_users.html' %}
+    {% include 'gym/partial_user_list.html' %}
 {% endif %}
 
 
