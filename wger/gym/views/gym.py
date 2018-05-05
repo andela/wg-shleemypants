@@ -103,12 +103,21 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
         '''
         out = {'admins': [],
                'members': [],
-               'active_users': []}
+               'active_users': [],
+               'inactive_users': []}
 
         for u in Gym.objects.get_members(self.kwargs['pk']).select_related('usercache'):
             out['members'].append({'obj': u,
                                    'last_log': u.usercache.last_activity})
-            print(u)
+
+            if u.is_active:
+                out['active_users'].append({'obj':u})
+
+            else:
+                out['inactive_users'].append({'obj':u})
+
+            print(out['active_users'])
+
         # admins list
         for u in Gym.objects.get_admins(self.kwargs['pk']):
             out['admins'].append({'obj': u,
@@ -124,12 +133,16 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
         Pass other info to the template
         '''
         context = super(GymUserListView, self).get_context_data(**kwargs)
+
+        print(context)
+
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
         context['admin_count'] = len(context['object_list']['admins'])
         context['user_count'] = len(context['object_list']['members'])
         context['user_table'] = {'keys': [_('ID'), _('Username'), _('Name'), _('Last activity')],
                                  'users': context['object_list']['members'],
-                                 'active_users': context['object_list']['active_members']}
+                                 'active_users': context['object_list']['active_users'],
+                                 'inactive_users': context['object_list']['inactive_users']}
         return context
 
 
