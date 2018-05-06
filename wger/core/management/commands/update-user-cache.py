@@ -13,7 +13,9 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-
+'''
+management commands updates user cache module
+'''
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
@@ -27,7 +29,8 @@ class Command(BaseCommand):
 
     help = 'Update the user cache-table. This is only needed when the python' \
            'code used to calculate any of the cached entries is changed and ' \
-           'the ones in the database need to be updated to reflect the new logic.'
+           'the ones in the database need to be updated to '\
+           'reflect the new logic.'
 
     def handle(self, **options):
         '''

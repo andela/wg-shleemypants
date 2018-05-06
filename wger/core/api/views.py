@@ -14,7 +14,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-
+'''
+Api views module
+'''
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework.response import Response

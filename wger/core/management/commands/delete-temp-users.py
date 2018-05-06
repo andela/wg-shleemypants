@@ -13,7 +13,9 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-
+'''
+management delete temp users module
+'''
 import datetime
 
 from django.utils.timezone import now
