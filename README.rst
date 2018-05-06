@@ -1,8 +1,7 @@
 .. image:: https://travis-ci.org/andela/wg-shleemypants.svg?branch=ft-create-api-users-157110616
     :target: https://travis-ci.org/andela/wg-shleemypants
-
- .. image:: https://coveralls.io/repos/github/andela/wg-shleemypants/badge.svg?branch=master
-:target: https://coveralls.io/github/andela/wg-shleemypants?branch=master
+.. image:: https://coveralls.io/repos/github/andela/wg-shleemypants/badge.svg?branch=master
+    :target: https://coveralls.io/github/andela/wg-shleemypants?branch=master
 
 Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
 application that manages your exercises and personal workouts, weight and diet
