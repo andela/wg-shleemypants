@@ -22,6 +22,8 @@ from wger.exercises.models import Muscle
 
 
 class ExerciseCommentInline(admin.TabularInline):  # admin.StackedInline
+
+
     model = ExerciseComment
     extra = 1
 
