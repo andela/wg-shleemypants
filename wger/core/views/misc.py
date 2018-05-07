@@ -16,6 +16,7 @@
 
 import logging
 
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -38,6 +39,7 @@ from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
 from wger.weight.helpers import get_last_entries
+from wger.core.views.fitbit import Fitbit
 
 
 logger = logging.getLogger(__name__)
@@ -137,6 +139,34 @@ def dashboard(request):
         template_data['nutritional_info'] = plan.get_nutritional_values()
 
     return render(request, 'index.html', template_data)
+
+
+@login_required
+def fitbitLogin(request):
+    fitbit = Fitbit()
+    login_url = fitbit.generate_authorization_uri()
+    return redirect(login_url)
+
+
+@login_required
+def fitbitFetch(request):
+    code = request.GET.get('code')
+    fitbit = FitBit()
+    token = fitbit.request_access_token(code)
+    try:
+        data = fitbit.get_weight(token)
+        for weight in data['weight']:
+            weight_entry = WeightEntry()
+            weight_entry.user = request.user
+            weight_entry.weight = weight['weight']
+            weight_entry.date = weight['date']
+            try:
+                weight_entry.save()
+            except Exception as e:
+                return e
+    except Exception as e:
+        return e
+    return HttpResponseRedirect(reverse('core:dashboard'))
 
 
 class ContactClassView(TemplateView):
