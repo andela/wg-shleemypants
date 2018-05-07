@@ -66,3 +66,4 @@ class Command(BaseCommand):
 #
 # api_user_email = input("Please input Their Email \n")
 #             api_user_password = input("Please input their password \n")
+
