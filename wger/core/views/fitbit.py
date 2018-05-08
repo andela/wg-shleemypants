@@ -1,31 +1,38 @@
-import os
-import base64
-import urllib
 import requests
+import urllib
+import base64
+import os
 
 
 class Fitbit:
-    CLIENT_ID = os.getenv('CLIENT_ID')
-    CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-    SCOPE = os.getenv('SCOPE')
-    REDIRECT_URI = os.getenv('REDIRECT_URI')
-    AUTHORIZE_URI = os.getenv('AUTHORIZE_URI')
-    TOKEN_REQUEST_URI = os.getenv('TOKEN_REQUEST_URI')
+    """Class to handle all fitbit operation"""
+    # App settings from fitbit as regards the app
+    CLIENT_ID = os.getenv('CLIENT_ID', 'DEFAULT_VALUE')
+    CLIENT_SECRET = os.getenv('CLIENT_SECRET', 'DEFAULT_VALUE')
+    SCOPE = os.getenv('SCOPE', 'DEFAULT_VALUE')
+    REDIRECT_URI = os.getenv('REDIRECT_URI', 'DEFAULT_VALUE')
+    # Authorization and authentication URIs
+    AUTHORIZE_URI = os.getenv('AUTHORIZE_URI', 'DEFAULT_VALUE')
+    TOKEN_REQUEST_URI = os.getenv("TOKEN_REQUEST_URI", 'DEFAULT_VALUE')
 
     def generate_authorization_uri(self):
-        """Creates a unique uri for each user."""
-
+        """Creates a unique  url for authorization for each user
+        """
+        # parameters for authorization
         params = {
             'client_id': self.CLIENT_ID,
             'response_type': 'code',
             'scope': self.SCOPE,
             'redirect_uri': self.REDIRECT_URI
         }
-
-        url_params = urllib.parse.urlencode(params)
+        # encode the parameters
+        urlparams = urllib.parse.urlencode(params)
+        # construct and return authorization_uri
+        return self.AUTHORIZE_URI + '?' + urlparams
 
     def request_access_token(self, code):
-        """Creates a fitbit authorization url"""
+        """Generates url for fit bit authorization """
+        # Authentication header
         client_id = self.CLIENT_ID.encode('utf-8')
         headers = {
             'Authorization': os.environ.get('Authorization'),
@@ -49,9 +56,9 @@ class Fitbit:
             raise Exception("Action unsuccessful " + str(response.status_code))
         # get the tokens
         response = response.json()
-        token = {}
-        token['access_token'] = response('access_token')
-        token['refresh_token'] = response('refresh_token')
+        token = dict()
+        token['access_token'] = response['access_token']
+        token['refresh_token'] = response['refresh_token']
 
         return token
 
@@ -65,7 +72,7 @@ class Fitbit:
         # parameters for refresh token request
         params = {
             'grant_type': 'refresh_token',
-            'refresh_token': token('refresh_token')
+            'refresh_token': token['refresh_token']
         }
         # request for token
         response = requests.post(self.TOKEN_REQUEST_URI, data=params, headers=headers)
@@ -79,7 +86,7 @@ class Fitbit:
     def get_weight(self, token):
         """Method makes call to API"""
         headers = {
-            'Authorization': 'Bearer ' + token('access_token')
+            'Authorization': 'Bearer ' + token['access_token']
         }
         url = os.getenv('url')
         response = requests.get(url, headers=headers)

@@ -140,35 +140,6 @@ def dashboard(request):
 
     return render(request, 'index.html', template_data)
 
-
-@login_required
-def fitbitLogin(request):
-    fitbit = Fitbit()
-    login_url = fitbit.generate_authorization_uri()
-    return redirect(login_url)
-
-
-@login_required
-def fitbitFetch(request):
-    code = request.GET.get('code')
-    fitbit = FitBit()
-    token = fitbit.request_access_token(code)
-    try:
-        data = fitbit.get_weight(token)
-        for weight in data['weight']:
-            weight_entry = WeightEntry()
-            weight_entry.user = request.user
-            weight_entry.weight = weight['weight']
-            weight_entry.date = weight['date']
-            try:
-                weight_entry.save()
-            except Exception as e:
-                return e
-    except Exception as e:
-        return e
-    return HttpResponseRedirect(reverse('core:dashboard'))
-
-
 class ContactClassView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ContactClassView, self).get_context_data(**kwargs)
@@ -229,3 +200,33 @@ class FeedbackClass(FormView):
         mail.mail_admins(subject, message)
 
         return super(FeedbackClass, self).form_valid(form)
+
+
+@login_required
+def fitbitLogin(request):
+    """View redirects to the fitbit authorization page"""
+    fitbit = Fitbit()
+    login_url = fitbit.generate_authorization_uri()
+    return redirect(login_url)
+
+
+@login_required
+def fitbitFetch(request):
+    """View fetches weight data from fitbit"""
+    code = request.GET.get('code')
+    fitbit = Fitbit()
+    token = fitbit.request_access_token(code)
+    try:
+        data = fitbit.get_weight(token)
+        for log in data['body-weight']:
+            weight_entry = WeightEntry()
+            weight_entry.user = request.user
+            weight_entry.weight = log['value']
+            weight_entry.date = dateutil.parser.parse(log['dateTime'])
+            try:
+                weight_entry.save()
+            except Exception as e:
+                pass
+    except Exception as e:
+        return e
+    return HttpResponseRedirect(reverse('core:dashboard'))

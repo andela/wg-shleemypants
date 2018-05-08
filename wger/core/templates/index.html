@@ -112,7 +112,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
         <h4>{% trans "Weight"%}</h4>
         <p>
             <a href="{% url 'weight:overview' user.username %}">{% trans "Overview" %}</a>
-            <a href="{% url 'core:fitbit-login' %}" class="btn btn-info">Fitbit</a>
+            <a href="{% url 'core:fitbit-login' %}" class="btn btn-info">Sync Fitbit</a>
         </p>
 
         {% if weight %}
