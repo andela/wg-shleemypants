@@ -803,6 +803,13 @@ class WorkoutSession(models.Model):
     The workout the session belongs to
     '''
 
+    workout_log = models.ForeignKey(WorkoutLog,
+                                    verbose_name=_('Workout log'),
+                                    blank=False)
+    '''
+    The Workout Log the session belongs to
+    '''
+
     date = Html5DateField(verbose_name=_('Date'))
     '''
     The date the workout session was performed

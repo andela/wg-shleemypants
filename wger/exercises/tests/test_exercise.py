@@ -218,6 +218,33 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
 
         self.exercise_detail(editor=False)
 
+class ExerciseDetailsTestCase(WorkoutManagerTestCase):
+    '''
+    Exercise details test case
+    '''
+    def test_retrieve_all_details(self):
+        '''
+        tests retrieval of all exercises and their details
+        '''
+        url = '/api/v2/exercisedetails/'
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, 'creation_date')
+        self.assertContains(res, 'muscles')
+        self.assertContains(res, 'description')
+
+    def test_retrieval_of_exercise_using_id(self):
+        '''
+        tests retrival of exercise details using id
+        '''
+        url = '/api/v2/exercisedetails/2'
+        res = self.client.get(url)
+        self.assertContains(res, 'id')
+        self.assertContains(res, 'muscles')
+        self.assertContains(res, 'description')
+        
+
+
 
 class ExercisesTestCase(WorkoutManagerTestCase):
     '''
