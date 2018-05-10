@@ -233,19 +233,6 @@ class ExerciseDetailsTestCase(WorkoutManagerTestCase):
         self.assertContains(res, 'muscles')
         self.assertContains(res, 'description')
 
-    def test_retrieval_of_exercise_using_id(self):
-        '''
-        tests retrival of exercise details using id
-        '''
-        url = '/api/v2/exercisedetails/1'
-        res = self.client.get(url)
-        
-        self.assertContains(res, 'id')
-        self.assertContains(res, 'muscles')
-        self.assertContains(res, 'description')
-        
-
-
 
 class ExercisesTestCase(WorkoutManagerTestCase):
     '''
