@@ -35,6 +35,15 @@ SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '785741301455-0fpulhilcg0u6urkd0ifcnctr292oa3m.apps.googleusercontent.com' #CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'QY_toQFAHeOXR9ax5d8sqpB6' #Secret Key
+
+SOCIAL_AUTH_FACEBOOK_KEY ='2098334840449139'  #CLient Key
+SOCIAL_AUTH_FACEBOOK_SECRET = 'ea53a4894ce2e6c03d79683f6af792ea' #Secret Key
+
+SOCIAL_AUTH_TWITTER_KEY ='qIoE1IP6y9OkpMgyLCp99EluN'  #CLient Key
+SOCIAL_AUTH_TWITTER_SECRET = 'JWOHd7Fk0TT02cVPdf7GDO9LtHB5ptCSurpuYQDnWMuIa0acAl' #Secret Key
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,8 +140,12 @@ MIDDLEWARE_CLASSES = (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
-    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    # For Facebook Authentication
+    'social_core.backends.facebook.FacebookOAuth2',
+    #twitter
+    'social_core.backends.twitter.TwitterOAuth',
+
+    #google authentication
     'social_core.backends.google.GoogleOAuth2',  # for Google authentication
     'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
  
@@ -156,6 +169,9 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                #social logins
+                'social_django.context_processors.backends', 
+                'social_django.context_processors.login_redirect', 
 
                 # Django mobile
                 'django_mobile.context_processors.flavour',
