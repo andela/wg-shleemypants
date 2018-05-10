@@ -131,15 +131,17 @@
         "pk": 17,
         "model": "exercises.muscle",
         "fields": {
-          "is_front": true,
+          "is_front": false,
           "name": "lateral deltoid"
+        }
     },
     {
         "pk": 19,
         "model": "exercises.muscle",
         "fields": {
-          "is_front": true,
+          "is_front": false,
           "name": "Posterious Deltoid"
+        }
     },
     {
         "pk": 20,
