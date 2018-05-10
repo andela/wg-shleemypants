@@ -806,7 +806,7 @@ class WorkoutSession(models.Model):
     workout_log = models.ForeignKey(WorkoutLog,
                                     verbose_name=_('Workout log'),
                                     null=True,
-                                    blank=False)
+                                    blank=True)
     '''
     The Workout Log the session belongs to
     '''
