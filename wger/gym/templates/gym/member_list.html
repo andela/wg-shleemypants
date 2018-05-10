@@ -12,9 +12,13 @@
     {% endif %}
 {% endblock %}
 
-
 {% block content %}
 {% if perms.gym.manage_gym or perms.gym.gym_trainer %}
+    <div>
+        <a class="btn btn-success" href="members">All Users</a>
+        <a class="btn btn-primary" href="members?group=active">Active Users</a>
+        <a class="btn btn-danger" href="members?group=inactive">Deactivated Users</a>
+    </div>
     {% include 'gym/partial_user_list.html' %}
 {% endif %}
 
