@@ -55,7 +55,7 @@ before_script:
 script:
   # Formatting
   # - pep8 wger
-
+  - python manage.py makemigrations --merge --no-input
   # Javascript linting
   - gulp lint
 
@@ -66,5 +66,5 @@ script:
   # Code coverage
   - coverage report
 
- notifications:
-    slack: andela:ULPqfRnWEWmLpQThku9rgqLu#wg-shleemypants-build
+notifications:
+  slack: andela:ULPqfRnWEWmLpQThku9rgqLu#wg-shleemypants-build
