@@ -32,7 +32,8 @@ from wger.exercises.api.serializers import (
     ExerciseImageSerializer,
     ExerciseCategorySerializer,
     EquipmentSerializer,
-    ExerciseCommentSerializer
+    ExerciseCommentSerializer,
+    ExerciseDetailsSerializer
 )
 from wger.exercises.models import (
     Exercise,
@@ -47,9 +48,11 @@ from wger.utils.permissions import CreateOnlyPermission
 
 
 class ExerciseViewSet(viewsets.ModelViewSet):
+
     '''
     API endpoint for exercise objects
     '''
+    
     queryset = Exercise.objects.all()
     serializer_class = ExerciseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
@@ -207,3 +210,21 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filter_fields = ('name',
                      'is_front')
+
+class ExerciseDetailsViewSet(viewsets.ReadOnlyModelViewSet):
+    '''
+    This is a read only API endpoint for overall exercise details 
+    '''
+    serializer_class = ExerciseDetailsSerializer
+
+    """
+    This function queries the database for an exercise.
+    It takes an id as a parameter and return the exercise with the given id.
+    If no id is provided it returns all the exercises.
+    """
+    def get_queryset(self):
+        queryset = Exercise.objects.all()
+        filter_value = self.request.query_params.get('id', None)
+        if filter_value is not None:
+            queryset = queryset.filter(field_name=filter_value)
+        return queryset

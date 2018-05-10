@@ -109,6 +109,8 @@ router.register(r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet
 router.register(r'exerciseimage', exercises_api_views.ExerciseImageViewSet, base_name='exerciseimage')
 router.register(r'exercisecomment', exercises_api_views.ExerciseCommentViewSet, base_name='exercisecomment')
 router.register(r'muscle', exercises_api_views.MuscleViewSet, base_name='muscle')
+# Register exercise viewset with a router
+router.register(r'exercisedetails', exercises_api_views.ExerciseDetailsViewSet, base_name='exercisedetails')
 
 # Nutrition app
 router.register(r'ingredient', nutrition_api_views.IngredientViewSet, base_name='api-ingredient')
@@ -171,6 +173,10 @@ urlpatterns += [
         nutrition_api_views.search,
         name='ingredient-search'),
     url(r'^api/v2/', include(router.urls)),
+    # Register view with the url
+    url(r'^exercisedetails/(?P<id>\d+)/$',
+        exercises_api_views.ExerciseDetailsViewSet,
+        name='exercisedetails'),
 ]
 
 #

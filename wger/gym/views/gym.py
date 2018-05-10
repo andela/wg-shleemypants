@@ -101,12 +101,13 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
         '''
         Return a list with the users, not really a queryset.
         '''
-        out = {'admins': [],
-               'members': []}
 
-        for u in Gym.objects.get_members(self.kwargs['pk']).select_related('usercache'):
-            out['members'].append({'obj': u,
-                                   'last_log': u.usercache.last_activity})
+        group = self.request.GET.get('group', None)
+        out = {'admins': [],
+               'members': [],
+               'active_users': [],
+               'inactive_users': [],
+               'group':group,}
 
         # admins list
         for u in Gym.objects.get_admins(self.kwargs['pk']):
@@ -116,6 +117,21 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
                                             'gym_trainer': u.has_perm('gym.gym_trainer'),
                                             'any_admin': is_any_gym_admin(u)}
                                   })
+
+        if group == "active":
+            for u in Gym.objects.get_active_members(self.kwargs['pk']).select_related('usercache'):
+                out['members'].append({'obj': u,
+                                       'last_log': u.usercache.last_activity})
+        elif group == "inactive":
+            for u in Gym.objects.get_inactive_members(self.kwargs['pk']).select_related('usercache'):
+                out['members'].append({'obj': u,
+                                       'last_log': u.usercache.last_activity})
+
+        else:
+            for u in Gym.objects.get_members(self.kwargs['pk']).select_related('usercache'):
+                out['members'].append({'obj': u,
+                                       'last_log': u.usercache.last_activity})
+
         return out
 
     def get_context_data(self, **kwargs):
@@ -123,11 +139,16 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
         Pass other info to the template
         '''
         context = super(GymUserListView, self).get_context_data(**kwargs)
+
+
+
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
         context['admin_count'] = len(context['object_list']['admins'])
         context['user_count'] = len(context['object_list']['members'])
         context['user_table'] = {'keys': [_('ID'), _('Username'), _('Name'), _('Last activity')],
-                                 'users': context['object_list']['members']}
+                                 'users': context['object_list']['members'],
+                                 'active_users': context['object_list']['active_users'],
+                                 'inactive_users': context['object_list']['inactive_users']}
         return context
 
 
