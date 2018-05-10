@@ -237,8 +237,9 @@ class ExerciseDetailsTestCase(WorkoutManagerTestCase):
         '''
         tests retrival of exercise details using id
         '''
-        url = '/api/v2/exercisedetails/2'
+        url = '/api/v2/exercisedetails/1'
         res = self.client.get(url)
+        
         self.assertContains(res, 'id')
         self.assertContains(res, 'muscles')
         self.assertContains(res, 'description')

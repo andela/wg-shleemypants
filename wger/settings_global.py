@@ -35,6 +35,11 @@ SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
+
+#socail authentication keys
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '785741301455-8jvpvull5c9fk2ouneo1s1mfm3q9u0n7.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'evqb1eRw5dcuuu714UGooniU'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +47,9 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #enable social login
+    'social_django',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -129,8 +137,20 @@ MIDDLEWARE_CLASSES = (
 )
 
 AUTHENTICATION_BACKENDS = (
+    
+    # For Facebook Authentication
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    # For Twitter Authentication
+    'social_core.backends.twitter.TwitterOAuth',
+
+    # For Google Authentication
+    # 'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.google.GoogleOAuth',
+    #default wger authentication
     'django.contrib.auth.backends.ModelBackend',
-    'wger.utils.helpers.EmailAuthBackend'
+    'wger.utils.helpers.EmailAuthBackend',
 )
 
 TEMPLATES = [
@@ -149,6 +169,9 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                #for socail logins
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
 
                 # Django mobile
                 'django_mobile.context_processors.flavour',
