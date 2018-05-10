@@ -840,7 +840,7 @@ class WorkoutSession(models.Model):
     '''
     Time the workout session ended
     '''
-    workout_log = workout = models.ForeignKey(WorkoutLog, verbose_name=_('WorkoutLog'))
+    workout_log = models.ForeignKey(WorkoutLog, verbose_name=_('WorkoutLog'))
 
     def __str__(self):
         '''
