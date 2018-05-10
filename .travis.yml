@@ -55,7 +55,7 @@ before_script:
 script:
   # Formatting
   # - pep8 wger
-
+  - python manage.py makemigrations --merge --no-input
   # Javascript linting
   - gulp lint
 
