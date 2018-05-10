@@ -66,5 +66,5 @@ script:
   # Code coverage
   - coverage report
 
- notifications:
-    slack: andela:ULPqfRnWEWmLpQThku9rgqLu#wg-shleemypants-build
+notifications:
+  slack: andela:ULPqfRnWEWmLpQThku9rgqLu#wg-shleemypants-build
