@@ -20,13 +20,14 @@ RUN apt-get install -y vim tmux sqlite3
 
 # Set up the application
 USER wger
-RUN git clone https://github.com/wger-project/wger.git /home/wger/src
+RUN git clone -b ft-add-drop-set-support-#157110618 https://github.com/andela/wg-shleemypants.git /home/wger/src
 
-WORKDIR /home/wger/src
+WORKDIR /home/wger/src/
 RUN virtualenv --python python3 /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
-    && pip install -r requirements_devel.txt \
+    && pip install -r requirements.txt \
+    && cd wger \
     && invoke create_settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite \

@@ -43,8 +43,8 @@ install:
   - if [[ "$DB" = "postgresql" ]]; then pip install psycopg2; fi
 
   # Setup application
-  - if [[ "$DB" = "sqlite" ]]; then invoke create-settings; fi
-  - if [[ "$DB" = "postgresql" ]]; then invoke create-settings --database-type postgresql; fi
+  - if [[ "$DB" = "sqlite" ]]; then invoke create_settings; fi
+  - if [[ "$DB" = "postgresql" ]]; then invoke create_settings --database-type postgresql; fi
 
 # Create test databases
 before_script:
@@ -55,7 +55,7 @@ before_script:
 script:
   # Formatting
   # - pep8 wger
-
+  - python manage.py makemigrations --merge --no-input
   # Javascript linting
   - gulp lint
 
@@ -66,5 +66,5 @@ script:
   # Code coverage
   - coverage report
 
- notifications:
-    slack: andela:ULPqfRnWEWmLpQThku9rgqLu#wg-shleemypants-build
+notifications:
+  slack: andela:ULPqfRnWEWmLpQThku9rgqLu#wg-shleemypants-build

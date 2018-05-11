@@ -54,6 +54,9 @@ INSTALLED_APPS = (
     #for social logins
     'social_django',
 
+    #enable social login
+    'social_django',
+
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
 
@@ -153,7 +156,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',  # for Google authentication
  
     'django.contrib.auth.backends.ModelBackend',
-    'wger.utils.helpers.EmailAuthBackend'
+    'wger.utils.helpers.EmailAuthBackend',
 )
 
 TEMPLATES = [
