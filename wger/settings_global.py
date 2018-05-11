@@ -17,6 +17,7 @@
 import re
 import sys
 
+import django_heroku
 '''
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -370,3 +371,5 @@ WGER_SETTINGS = {
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'TWITTER': False
 }
+
+django_heroku.settings(locals())
