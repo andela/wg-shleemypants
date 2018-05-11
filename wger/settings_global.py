@@ -51,8 +51,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #for social logins
-    'social_django',
 
     #enable social login
     'social_django',
