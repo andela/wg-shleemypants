@@ -22,6 +22,7 @@ wg-env/
 *.egg-info/
 .installed.cfg
 *.egg
+wg-env/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
