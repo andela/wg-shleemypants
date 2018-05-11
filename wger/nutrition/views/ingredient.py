@@ -176,7 +176,6 @@ class IngredientCreateView(IngredientMixin, CreateView):
     sidebar = 'ingredient/form.html'
 
     def form_valid(self, form):
-        print("we are down hre trying to check whether form is valid")
         # set the submitter, if admin, set approrpiate status
         form.instance.user = self.request.user
         if self.request.user.has_perm('nutrition.add_ingredient'):
@@ -188,7 +187,6 @@ class IngredientCreateView(IngredientMixin, CreateView):
             mail.mail_admins(subject,
                              message,
                              fail_silently=True)
-        print("the instance is ", form.instance.language)
         form.instance.language = load_language(form.instance.language.short_name)
         return super(IngredientCreateView, self).form_valid(form)
 
