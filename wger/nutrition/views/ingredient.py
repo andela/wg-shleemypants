@@ -41,7 +41,6 @@ from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.language import load_language, load_ingredient_languages
 from wger.utils.cache import cache_mapper
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -66,8 +65,8 @@ class IngredientListView(ListView):
         '''
         languages = load_ingredient_languages(self.request)
         return (Ingredient.objects.filter(language__in=languages)
-                                  .filter(status__in=Ingredient.INGREDIENT_STATUS_OK)
-                                  .only('id', 'name'))
+                .filter(status__in=Ingredient.INGREDIENT_STATUS_OK)
+                .only('id', 'name'))
 
     def get_context_data(self, **kwargs):
         '''
@@ -141,9 +140,11 @@ class IngredientMixin(WgerFormMixin):
               'fat',
               'fat_saturated',
               'fibres',
+              'language',
               'sodium',
               'license',
-              'license_author']
+              'license_author'
+              ]
 
 
 class IngredientEditView(IngredientMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -175,7 +176,6 @@ class IngredientCreateView(IngredientMixin, CreateView):
     sidebar = 'ingredient/form.html'
 
     def form_valid(self, form):
-
         # set the submitter, if admin, set approrpiate status
         form.instance.user = self.request.user
         if self.request.user.has_perm('nutrition.add_ingredient'):
@@ -183,12 +183,11 @@ class IngredientCreateView(IngredientMixin, CreateView):
         else:
             subject = _('New user submitted ingredient')
             message = _(u'''The user {0} submitted a new ingredient "{1}".'''.format(
-                        self.request.user.username, form.instance.name))
+                self.request.user.username, form.instance.name))
             mail.mail_admins(subject,
                              message,
                              fail_silently=True)
-
-        form.instance.language = load_language()
+        form.instance.language = load_language(form.instance.language.short_name)
         return super(IngredientCreateView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
