@@ -361,7 +361,7 @@ class WorkoutCalendar(HTMLCalendar):
     def formatmonth(self, year, month):
         '''
         Format the table header. This is basically the same code from python's
-        calendar module but with additional bootstrap classes
+        calendar module but with additional bootstrap_ classes
         '''
         self.year, self.month = year, month
         out = []

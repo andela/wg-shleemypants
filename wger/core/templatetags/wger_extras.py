@@ -233,7 +233,7 @@ def spaceless_config(parser, token):
 def form_field_add_css(field, css):
     '''
     Adds a CSS class to a form field. This is needed among other places for
-    bootstrap 3, which needs a 'form-control' class in the field itself
+    bootstrap_ 3, which needs a 'form-control' class in the field itself
     '''
     return field.as_widget(attrs={"class": css})
 
@@ -279,7 +279,7 @@ def render_form_field(field):
     Renders a form field with all necessary labels, help texts and labels
     within 'form-group'.
 
-    See bootstrap documentation for details: http://getbootstrap.com/css/#forms
+    See bootstrap_ documentation for details: http://getbootstrap.com/css/#forms
     '''
 
     return {'field': field}
