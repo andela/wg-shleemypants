@@ -8645,29 +8645,5 @@
             "comment": "Move only the forearms"
         },
         "model": "exercises.exercisecomment"
-    },
-    {
-      "pk": 118,
-      "fields": {
-        "exercise": 387,
-        "comment": "Dummy comment"
-      },
-      "model": "exercises.exercisecomment"
-    },
-    {
-      "pk": 119,
-      "fields": {
-        "exercise": 388,
-        "comment": "Dummy Comment"
-      },
-      "model": "exercises.exercisecomment"
-    },
-    {
-      "pk": 120,
-      "fields": {
-        "exercise": 389,
-        "comment": "Dummy Comment"
-      },
-      "model": "exercises.exercisecomment"
     }
 ]
