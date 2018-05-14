@@ -31,6 +31,8 @@ from django.db.models import Min
 from django.db.models import Max
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+from django.contrib.auth.models import User
+from wger.utils.month_range import get_month_range
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -186,6 +188,25 @@ def get_weight_data(request, username=None):
 
     # Return the results to the client
     return Response(chart_data)
+
+
+@api_view(['GET'])
+def get_logged_in_user_weight_data(request, username=None):
+    '''
+      Process the user data and pass it to the JS libraries to generate a SVG image
+    '''
+    user = check_access(request.user, username)
+    date_min_max = get_month_range()
+
+    if date_min_max:
+        weights = WeightEntry.objects.filter(user=user, date__range=date_min_max)
+    else:
+        weights = WeightEntry.objects.filter(user=user)
+
+    chart_data = []
+
+    for entry in weights:
+        chart_data.append({'date': entry.date, 'weight': entry.weight})
 
 
 class WeightCsvImportFormPreview(FormPreview):
