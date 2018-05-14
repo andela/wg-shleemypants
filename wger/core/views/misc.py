@@ -15,10 +15,10 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import dateutil.parser
 
-from django.shortcuts import render, redirect
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -39,7 +39,7 @@ from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
 from wger.weight.helpers import get_last_entries
-from wger.core.views.fitbit import Fitbit
+from .fitbit import FitBit
 
 
 logger = logging.getLogger(__name__)
@@ -140,6 +140,7 @@ def dashboard(request):
 
     return render(request, 'index.html', template_data)
 
+
 class ContactClassView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ContactClassView, self).get_context_data(**kwargs)
@@ -205,8 +206,8 @@ class FeedbackClass(FormView):
 @login_required
 def fitbitLogin(request):
     """View redirects to the fitbit authorization page"""
-    fitbit = Fitbit()
-    login_url = fitbit.generate_authorization_uri()
+    fitbit = FitBit()
+    login_url = fitbit.ComposeAuthorizationuri()
     return redirect(login_url)
 
 
@@ -214,10 +215,13 @@ def fitbitLogin(request):
 def fitbitFetch(request):
     """View fetches weight data from fitbit"""
     code = request.GET.get('code')
-    fitbit = Fitbit()
-    token = fitbit.request_access_token(code)
+    fitbit = FitBit()
+    # exchange access_code for token
+    token = fitbit.RequestAccessToken(code)
+
+    # fetch weight data
     try:
-        data = fitbit.get_weight(token)
+        data = fitbit.GetWeight(token)
         for log in data['body-weight']:
             weight_entry = WeightEntry()
             weight_entry.user = request.user
