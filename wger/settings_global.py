@@ -35,10 +35,14 @@ SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY') 
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
-#socail authentication keys
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '785741301455-8jvpvull5c9fk2ouneo1s1mfm3q9u0n7.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'evqb1eRw5dcuuu714UGooniU'
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY') 
+SOCIAL_AUTH_FACEBOOK_SECRET =os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET') 
+
+SOCIAL_AUTH_TWITTER_KEY =os.getenv('SOCIAL_AUTH_TWITTER_KEY')
+SOCIAL_AUTH_TWITTER_SECRET = os.getenv('SOCIAL_AUTH_TWITTER_SECRET')
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -134,21 +138,21 @@ MIDDLEWARE_CLASSES = (
     # Django mobile
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
+    #social django middleware
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
-    
     # For Facebook Authentication
     'social_core.backends.facebook.FacebookOAuth2',
-
-    # For Twitter Authentication
+    #twitter
     'social_core.backends.twitter.TwitterOAuth',
 
-    # For Google Authentication
-    # 'social_core.backends.google.GoogleOpenId',
-    'social_core.backends.google.GoogleOAuth2',
-    # 'social_core.backends.google.GoogleOAuth',
-    #default wger authentication
+    #google authentication
+     'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+ 
     'django.contrib.auth.backends.ModelBackend',
     'wger.utils.helpers.EmailAuthBackend',
 )
@@ -169,9 +173,9 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                #for socail logins
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+                #social logins
+                'social_django.context_processors.backends', 
+                'social_django.context_processors.login_redirect', 
 
                 # Django mobile
                 'django_mobile.context_processors.flavour',
