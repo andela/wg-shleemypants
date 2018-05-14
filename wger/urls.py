@@ -79,7 +79,6 @@ v1_api.register(core_api.DaysOfWeekResource())
 v1_api.register(core_api.UserProfileResource())
 v1_api.register(core_api.LicenseResource())
 
-
 ### /api/v2 - django rest framework
 router = routers.DefaultRouter()
 
@@ -101,6 +100,8 @@ router.register(r'license', core_api_views.LicenseViewSet, base_name='license')
 router.register(r'setting-repetitionunit', core_api_views.RepetitionUnitViewSet, base_name='setting-repetition-unit')
 router.register(r'setting-weightunit', core_api_views.WeightUnitViewSet, base_name='setting-weight-unit')
 
+router.register(r'users', core_api_views.ApiUsersViewSet, base_name='users')
+
 # Exercises app
 router.register(r'exercise', exercises_api_views.ExerciseViewSet, base_name='exercise')
 router.register(r'equipment', exercises_api_views.EquipmentViewSet, base_name='api')
@@ -108,11 +109,14 @@ router.register(r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet
 router.register(r'exerciseimage', exercises_api_views.ExerciseImageViewSet, base_name='exerciseimage')
 router.register(r'exercisecomment', exercises_api_views.ExerciseCommentViewSet, base_name='exercisecomment')
 router.register(r'muscle', exercises_api_views.MuscleViewSet, base_name='muscle')
+# Register exercise viewset with a router
+router.register(r'exercisedetails', exercises_api_views.ExerciseDetailsViewSet, base_name='exercisedetails')
 
 # Nutrition app
 router.register(r'ingredient', nutrition_api_views.IngredientViewSet, base_name='api-ingredient')
 router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet, base_name='weightunit')
-router.register(r'ingredientweightunit', nutrition_api_views.IngredientWeightUnitViewSet, base_name='ingredientweightunit')
+router.register(r'ingredientweightunit', nutrition_api_views.IngredientWeightUnitViewSet,
+                base_name='ingredientweightunit')
 router.register(r'nutritionplan', nutrition_api_views.NutritionPlanViewSet, base_name='nutritionplan')
 router.register(r'meal', nutrition_api_views.MealViewSet, base_name='meal')
 router.register(r'mealitem', nutrition_api_views.MealItemViewSet, base_name='mealitem')
@@ -120,8 +124,8 @@ router.register(r'mealitem', nutrition_api_views.MealItemViewSet, base_name='mea
 # Weight app
 router.register(r'weightentry', weight_api_views.WeightEntryViewSet, base_name='weightentry')
 
-
 from django.contrib import admin
+
 admin.autodiscover()
 
 #
@@ -144,6 +148,7 @@ urlpatterns = i18n_patterns(
     url(r'config/', include('wger.config.urls', namespace='config', app_name='config')),
     url(r'gym/', include('wger.gym.urls', namespace='gym', app_name='gym')),
     url(r'email/', include('wger.email.urls', namespace='email')),
+    url(r'^auth/', include('social_django.urls', namespace='social')),
     url(r'^sitemap\.xml$',
         sitemap,
         {'sitemaps': sitemaps},
@@ -169,6 +174,10 @@ urlpatterns += [
         nutrition_api_views.search,
         name='ingredient-search'),
     url(r'^api/v2/', include(router.urls)),
+    # Register view with the url
+    url(r'^exercisedetails/(?P<id>\d+)/$',
+        exercises_api_views.ExerciseDetailsViewSet,
+        name='exercisedetails'),
 ]
 
 #
