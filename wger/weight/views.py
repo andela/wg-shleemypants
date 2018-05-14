@@ -208,6 +208,27 @@ def get_logged_in_user_weight_data(request, username=None):
     for entry in weights:
         chart_data.append({'date': entry.date, 'weight': entry.weight})
 
+    # Return the results to the client
+    return Response(chart_data)
+
+
+@api_view(['GET'])
+def get_user_weight_data(request, username=None):
+    '''
+      Process the user data and pass it to the JS libraries to generate a SVG image
+    '''
+    user = User.objects.filter(username=username)
+    date_min_max = get_month_range()
+    weights = WeightEntry.objects.filter(user=user, date__range=date_min_max)
+
+    chart_data = []
+
+    for entry in weights:
+        chart_data.append({'date': entry.date, 'weight': entry.weight})
+
+    # Return the results to the client
+    return Response(chart_data)
+
 
 class WeightCsvImportFormPreview(FormPreview):
     preview_template = 'import_csv_preview.html'
