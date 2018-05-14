@@ -7600,6 +7600,7 @@
               20
           ],
             "license": 2,
+            "video_url": "https://www.youtube.com/embed/7ac_qmBjkFI",
             "name": "Wrist Curl"
         },
         "model": "exercises.exercise"
@@ -7623,6 +7624,7 @@
               20
           ],
             "license": 2,
+            "video_url": "https://www.youtube.com/embed/UyRiw2b8yI4",
             "name": "Deadlift"
         },
         "model": "exercises.exercise"
@@ -7645,6 +7647,7 @@
               20
           ],
             "license": 2,
+            "video_url": "https://www.youtube.com/embed/-lOFG0U_rlY",
             "name": "Wrist Roller"
         },
         "model": "exercises.exercise"
@@ -7667,6 +7670,7 @@
               17
           ],
             "license": 2,
+            "video_url": "https://www.youtube.com/embed/6Z15_WdXmVw",
             "name": "Arnold Presses"
         },
         "model": "exercises.exercise"
@@ -7689,6 +7693,7 @@
               17
           ],
             "license": 2,
+            "video_url": "https://www.youtube.com/embed/D-3JnFrFUOw",
             "name": "Front Arm Raises"
         },
         "model": "exercises.exercise"
@@ -7711,6 +7716,7 @@
               17
           ],
             "license": 2,
+            "video_url": "https://www.youtube.com/embed/oFfCOxU_o7w",
             "name": "Lying Side Laterals"
         },
         "model": "exercises.exercise"
@@ -7733,6 +7739,7 @@
               19
           ],
             "license": 2,
+            "video_url": "https://www.youtube.com/embed/R8JuBVL3dxQ",
             "name": "Rear Delts"
         },
         "model": "exercises.exercise"
@@ -7756,6 +7763,7 @@
               19
           ],
             "license": 2,
+            "video_url": "https://www.youtube.com/embed/3eOFjmSM9s8",
             "name": "Rear Delt Dumbbell Rows"
         },
         "model": "exercises.exercise"
@@ -7778,6 +7786,7 @@
               19
           ],
             "license": 2,
+            "video_url": "https://www.youtube.com/embed/KC8mlDOYJ2I",
             "name": "Band Face Pull"
         },
         "model": "exercises.exercise"

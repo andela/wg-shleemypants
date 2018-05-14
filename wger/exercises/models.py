@@ -174,6 +174,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                             verbose_name=_('Name'))
     '''The exercise's name, with correct upercase'''
 
+    video_url = models.URLField(max_length=2000,
+                                 blank=True,
+                            verbose_name=_('Video'))
+    '''An accompanying video on how to perform the exercise'''
+
     name_original = models.CharField(max_length=200,
                                      verbose_name=_('Name'),
                                      default='')
