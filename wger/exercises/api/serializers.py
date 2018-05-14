@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from rest_framework import serializers
+from django.utils.encoding import force_text
 from wger.exercises.models import (
     Muscle,
     Exercise,
@@ -29,6 +30,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
     '''
     Exercise serializer
     '''
+    
     class Meta:
         model = Exercise
 
@@ -71,3 +73,28 @@ class MuscleSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = Muscle
+
+class ExerciseDetailsSerializer(serializers.ModelSerializer):
+    '''
+    ExerciseDetails serializer
+    '''
+
+    #serialize all the details related to an exercise
+   
+    muscles = MuscleSerializer(read_only=True, many=True)
+    muscles_secondary = MuscleSerializer(read_only=True, many=True)
+    equipment = EquipmentSerializer(read_only=True, many=True)
+    image = serializers.SerializerMethodField(source='main_image')
+
+    class Meta:
+        model = Exercise
+        fields = ('id', 'name', 'name_original', 'category', 'description',
+                  'image', 'muscles', 'muscles_secondary',
+                  'creation_date', 'language',
+                  'equipment', 'uuid', 'license_author', 'license',
+                  'status', )
+
+    # Method that retrieves the image that is being serialized in the serializer method field
+    # This method takes an object and returns an image 
+    def get_image(self, obj):
+        return force_text(obj.main_image)

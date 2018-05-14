@@ -82,3 +82,13 @@ class UpdateOnlyPermission(permissions.BasePermission):
         return (request.user and
                 request.user.is_authenticated() and
                 request.method in ['GET', 'HEAD', 'OPTIONS', 'PATCH'])
+
+
+class CanCreateApiUser(permissions.BasePermission):
+    """
+    Custom permission that restricts creation of user through api
+    """
+    def has_permission(self, request, view):
+        return (request.user and
+                request.user.is_authenticated() and
+                request.user.userprofile.can_create_api_user)
