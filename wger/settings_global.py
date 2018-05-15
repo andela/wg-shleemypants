@@ -44,6 +44,11 @@ SOCIAL_AUTH_FACEBOOK_SECRET =os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_TWITTER_KEY =os.getenv('SOCIAL_AUTH_TWITTER_KEY')
 SOCIAL_AUTH_TWITTER_SECRET = os.getenv('SOCIAL_AUTH_TWITTER_SECRET')
 
+#django debug
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+INTERNAL_IPS = ('127.0.0.1',)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +59,8 @@ INSTALLED_APPS = (
 
     #enable social login
     'social_django',
+    #django debug
+    'debug_toolbar',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -124,6 +131,9 @@ MIDDLEWARE_CLASSES = (
 
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
+
+    #django debug
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',

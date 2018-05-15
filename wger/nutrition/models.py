@@ -40,6 +40,7 @@ from wger.utils.fields import Html5TimeField
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
+from django.core.cache import cache
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -374,6 +375,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
         '''
 
         super(Ingredient, self).save(*args, **kwargs)
+        QUEUE_KEY = "queue"
+        cache.delete(QUEUE_KEY)
         cache.delete(cache_mapper.get_ingredient_key(self.id))
 
     def __str__(self):
