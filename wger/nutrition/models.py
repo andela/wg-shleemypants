@@ -592,10 +592,10 @@ class MealItem(models.Model):
                                  verbose_name=_('Amount'),
                                  validators=[MinValueValidator(1),
                                              MaxValueValidator(1000)])
-    actual_meal = 'actual_meal'
-    planned_meal = 'planned_meal'
+    actual_meal = 'actual meal'
+    planned_meal = 'planned meal'
     meal_choices = (
-        (actual_meal, 'Actual meal eaten'),
+        (actual_meal, 'Actual meal'),
         (planned_meal, 'Planned meal')
     )
     meal_type = models.CharField(max_length=20, choices=meal_choices, default=planned_meal)
