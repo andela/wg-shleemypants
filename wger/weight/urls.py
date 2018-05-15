@@ -50,11 +50,11 @@ urlpatterns = [
     url(r'^api/get_weight_data/$', # JS
         views.get_weight_data,
         name='weight-data'),
-    url(r'^api/get_logged_in_user_weight_data/(?P<username>[\w.@+-]+)$',
-        views.get_logged_in_user_weight_data,
+    url(r'^api/get_logged_user_weight_data/(?P<username>[\w.@+-]+)$', # JS
+        views.get_logged_user_weight_data,
         name='logged_user_weight-data',
        ),
-    url(r'^api/get_user_weight_data/(?P<username>[\w.@+-]+)$',
+    url(r'^api/get_user_weight_data/(?P<username>[\w.@+-]+)$', # JS
         views.get_user_weight_data,
         name='user_weight-data',
        ),
