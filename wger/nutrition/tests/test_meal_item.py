@@ -32,7 +32,7 @@ class EditMealItemUnitTestCase(WorkoutManagerEditTestCase):
     data = {'amount': 1,
             'ingredient': 1,
             'weight_unit': 1,
-            'meal_type': 'planned_meal'}
+            'meal_type': 'planned meal'}
 
 
 class EditMealItemWeightTestCase(WorkoutManagerEditTestCase):
@@ -45,7 +45,7 @@ class EditMealItemWeightTestCase(WorkoutManagerEditTestCase):
     pk = 4
     data = {'amount': 100,
             'ingredient': 1,
-            'meal_type': 'planned_meal'}
+            'meal_type': 'planned meal'}
 
 
 class AddMealItemUnitTestCase(WorkoutManagerAddTestCase):
@@ -58,7 +58,7 @@ class AddMealItemUnitTestCase(WorkoutManagerAddTestCase):
     data = {'amount': 1,
             'ingredient': 1,
             'weight_unit': 1,
-            'meal_type': 'planned_meal'}
+            'meal_type': 'planned meal'}
 
 
 class AddMealItemWeightTestCase(WorkoutManagerAddTestCase):
@@ -70,7 +70,7 @@ class AddMealItemWeightTestCase(WorkoutManagerAddTestCase):
     url = reverse('nutrition:meal_item:add', kwargs={'meal_id': 3})
     data = {'amount': 100,
             'ingredient': 1,
-            'meal_type': 'planned_meal'}
+            'meal_type': 'planned meal'}
 
 
 class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -84,4 +84,4 @@ class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
     data = {'meal': 2,
             'amount': 100,
             'ingredient': 1,
-            'meal_type': 'planned_meal'}
+            'meal_type': 'planned meal'}
