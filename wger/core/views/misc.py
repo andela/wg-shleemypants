@@ -91,9 +91,6 @@ def comparison(request, username=None):
     '''
     users = list(User.objects.all())
 
-    ctx = {
-        "users": users,
-    }
     is_owner, user = check_access(request.user, username)
     others = User.objects.exclude(username=user.username)
 
@@ -101,7 +98,7 @@ def comparison(request, username=None):
 
     min_date = WeightEntry.objects.filter(user=user).aggregate(Min('date'))['date__min']
     max_date = WeightEntry.objects.filter(user=user).\
-        aggregate(Min('date'))['date__max']
+        aggregate(Max('date'))['date__max']
 
     if min_date:
         template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' %\
