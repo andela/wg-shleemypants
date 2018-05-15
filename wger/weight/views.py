@@ -163,7 +163,6 @@ def overview(request, username=None):
     return render(request, 'overview.html', template_data)
 
 
-@api_view(['GET'])
 def get_weight_data(request, username=None):
     '''
     Process the data to pass it to the JS libraries to generate an SVG image
@@ -191,11 +190,11 @@ def get_weight_data(request, username=None):
 
 
 @api_view(['GET'])
-def get_logged_in_user_weight_data(request, username=None):
+def get_logged_user_weight_data(request, username=None):
     '''
       Process the user data and pass it to the JS libraries to generate a SVG image
     '''
-    user = check_access(request.user, username)
+    is_owner, user = check_access(request.user, username)
     date_min_max = get_month_range()
 
     if date_min_max:
@@ -205,8 +204,8 @@ def get_logged_in_user_weight_data(request, username=None):
 
     chart_data = []
 
-    for entry in weights:
-        chart_data.append({'date': entry.date, 'weight': entry.weight})
+    for i in weights:
+        chart_data.append({'date': i.date, 'weight': i.weight})
 
     # Return the results to the client
     return Response(chart_data)
@@ -223,8 +222,8 @@ def get_user_weight_data(request, username=None):
 
     chart_data = []
 
-    for entry in weights:
-        chart_data.append({'date': entry.date, 'weight': entry.weight})
+    for i in weights:
+        chart_data.append({'date': i.date, 'weight': i.weight})
 
     # Return the results to the client
     return Response(chart_data)
