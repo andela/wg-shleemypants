@@ -592,6 +592,13 @@ class MealItem(models.Model):
                                  verbose_name=_('Amount'),
                                  validators=[MinValueValidator(1),
                                              MaxValueValidator(1000)])
+    actual_meal = 'actual_meal'
+    planned_meal = 'planned_meal'
+    meal_choices = (
+        (actual_meal, 'Actual meal eaten'),
+        (planned_meal, 'Planned meal')
+    )
+    meal_type = models.CharField(max_length=20, choices=meal_choices, default=planned_meal)
 
     def __str__(self):
         '''
@@ -674,3 +681,9 @@ class MealItem(models.Model):
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
         return nutritional_info
+
+    def get_meal_type(self):
+        '''
+        Returns the meal type
+        '''
+        return self.meal_type
