@@ -42,6 +42,8 @@ from wger.exercises.api import views as exercises_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.weight.api import views as weight_api_views
 
+from django.conf import settings
+
 #
 # REST API
 #
@@ -156,6 +158,14 @@ urlpatterns = i18n_patterns(
         {'sitemaps': sitemaps},
         name='sitemap')
 )
+
+#django debug
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
 
 #
 # URLs without language prefix
