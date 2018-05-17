@@ -78,8 +78,6 @@ def overview(request):
     cached_queue = {'queue': cached_queue}
     cached_queue.update(csrf(request))
 
-    # import pdb; pdb.set_trace()
-
     return render(request, 'plan/overview.html', cached_queue)
 
 
