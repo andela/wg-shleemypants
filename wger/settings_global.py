@@ -35,11 +35,11 @@ SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY') 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
-SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY') 
-SOCIAL_AUTH_FACEBOOK_SECRET =os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET') 
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET =os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET')
 
 SOCIAL_AUTH_TWITTER_KEY =os.getenv('SOCIAL_AUTH_TWITTER_KEY')
 SOCIAL_AUTH_TWITTER_SECRET = os.getenv('SOCIAL_AUTH_TWITTER_SECRET')
@@ -103,7 +103,7 @@ INSTALLED_APPS = (
 # added list of external libraries to be installed by bower
 BOWER_INSTALLED_APPS = (
     'jquery#2.1.x',
-    'bootstrap',
+    'bootstrap_',
     'd3',
     'shariff',
     'tinymce-dist',
@@ -152,7 +152,7 @@ AUTHENTICATION_BACKENDS = (
      'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
     'social_core.backends.google.GoogleOpenId',
     'social_core.backends.google.GoogleOAuth2',  # for Google authentication
- 
+
     'django.contrib.auth.backends.ModelBackend',
     'wger.utils.helpers.EmailAuthBackend',
 )
@@ -174,8 +174,8 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 #social logins
-                'social_django.context_processors.backends', 
-                'social_django.context_processors.login_redirect', 
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
 
                 # Django mobile
                 'django_mobile.context_processors.flavour',
