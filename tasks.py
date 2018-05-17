@@ -72,7 +72,7 @@ def bootstrap_wger(context,
                    browser=False,
                    start_server=True):
     '''
-    Performs all steps necessary to bootstrap_ the application
+    Performs all steps necessary to bootstrap the application
     '''
 
     # Find url to wger
