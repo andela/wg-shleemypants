@@ -40,6 +40,7 @@ from wger.utils.fields import Html5TimeField
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
+from django.core.cache import cache
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -374,6 +375,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
         '''
 
         super(Ingredient, self).save(*args, **kwargs)
+        QUEUE_KEY = "queue"
+        cache.delete(QUEUE_KEY)
         cache.delete(cache_mapper.get_ingredient_key(self.id))
 
     def __str__(self):
@@ -592,6 +595,13 @@ class MealItem(models.Model):
                                  verbose_name=_('Amount'),
                                  validators=[MinValueValidator(1),
                                              MaxValueValidator(1000)])
+    actual_meal = 'actual meal'
+    planned_meal = 'planned meal'
+    meal_choices = (
+        (actual_meal, 'Actual meal'),
+        (planned_meal, 'Planned meal')
+    )
+    meal_type = models.CharField(max_length=20, choices=meal_choices, default=planned_meal)
 
     def __str__(self):
         '''
@@ -674,3 +684,9 @@ class MealItem(models.Model):
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
         return nutritional_info
+
+    def get_meal_type(self):
+        '''
+        Returns the meal type
+        '''
+        return self.meal_type

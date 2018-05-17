@@ -143,12 +143,25 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://www.transifex.com/rge/wger-workout-manager/">
+                                    <a href="https://translate.zanata.org/iteration/view/5687/v1?dswid=-6293">
                                         <span class="fa fa-external-link" aria-hidden="true"></span>
-                                        {% trans "Translate with Transifex" %}
+                                        {% trans "Translate with Zanata" %}
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+
+                        {#                     #}
+                        {# comparison graphs   #}
+                        {#                     #}
+                        <li {% if active_tab == 'user' %}class="active"{% endif %}>
+                            <a href="{% url 'core:comparison'%}">
+                                {% if not user.is_authenticated %}
+                                {% trans "Features" %}
+                                {% else %}
+                                {% trans "Comparison" %}
+                                {% endif %}
+                            </a>    
                         </li>
 
                         {#                     #}
