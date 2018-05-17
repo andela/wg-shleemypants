@@ -205,6 +205,9 @@ urlpatterns = [
         misc.FeedbackClass.as_view(),
         name='feedback'),
 
+    #comparison
+    url(r'^comparison$', misc.comparison, name='comparison'),
+
     url(r'^language/', include(patterns_language, namespace="language")),
     url(r'^user/', include(patterns_user, namespace="user")),
     url(r'^license/', include(patterns_license, namespace="license")),

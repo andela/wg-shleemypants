@@ -243,6 +243,9 @@ fieldset[disabled] .btn-default.active {
     padding-right: 0 !important;
 
 }
+.eaten_meal {
+    color: blue
+}
 /*
 body.modal {
     overflow-y: hidden;

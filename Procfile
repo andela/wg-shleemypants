@@ -1,2 +1,3 @@
-web: gunicorn wger.wsgi --log-file -
-invoke create-settings --settings-path /wger/settings.py --database-path /wger/database.sqlite
+
+web: python manage.py runserver 0.0.0.0:$PORT
+

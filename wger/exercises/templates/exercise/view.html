@@ -347,6 +347,15 @@ $(document).ready(function() {
 {% endif %}
 
 {% license_sidebar exercise.license exercise.license_author %}
+
+<div>
+    <div style="margin-bottom: 10px;">
+        <strong>{{ exercise.name }} video</strong>
+    </div>
+    <iframe style="margin-top: 1px; " width="420" height="320" src="{{ exercise.video_url }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+
+
 {% endblock %}
 
 

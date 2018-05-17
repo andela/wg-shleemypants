@@ -49,6 +49,7 @@ function wgerCustomModalInit()
         <tr style="background: #E0E0E0;">
             <th>{% trans "Meal" %}</th>
             <th>{% trans "Contents" %}</th>
+            <th class="align-right">{% trans "Type" %}</th>
             <th class="align-right">{% trans "Energy" %}</th>
             <th class="align-right">{% trans "Protein" %}</th>
             <th class="align-right">{% trans "Carbohydrates" %}</th>
@@ -58,6 +59,7 @@ function wgerCustomModalInit()
     <tbody>
     <tr>
         <td colspan="2"></td>
+        <td ></td>
         <td class="align-right">{% trans 'kcal' %}</td>
         <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
         <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
@@ -96,6 +98,7 @@ function wgerCustomModalInit()
                 {{ item.amount|floatformat:"0" }} × {{ item.weight_unit.unit.name }}
             {% endif %}
             {{ item.ingredient.name }}
+            
 
             {% if is_owner %}
             <span class="editoptions">
@@ -109,11 +112,14 @@ function wgerCustomModalInit()
                     <span class="{% fa_class 'pencil-square-o' %}"></span></a>
             </span>
             {% endif %}
-            </td>
-            <td class="align-right">{{item.get_nutritional_values.energy|floatformat}}</td>
-            <td class="align-right">{{item.get_nutritional_values.protein|floatformat}}</td>
-            <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat}}</td>
-            <td class="align-right">{{item.get_nutritional_values.fat|floatformat}}</td>
+        </td>
+        <td>
+            <span >{{item.meal_type}}</span>
+        </td>
+        <td class="align-right">{{item.get_nutritional_values.energy|floatformat}}</td>
+        <td class="align-right">{{item.get_nutritional_values.protein|floatformat}}</td>
+        <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat}}</td>
+        <td class="align-right">{{item.get_nutritional_values.fat|floatformat}}</td>
 </tr>
     {% empty %}
     {% if is_owner %}
