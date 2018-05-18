@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import dateutil.parser
 
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -42,6 +44,7 @@ from wger.weight.models import WeightEntry
 from wger.weight.helpers import get_last_entries
 from wger.weight import helpers
 from wger.utils.helpers import check_access
+from .fitbit import FitBit
 
 
 logger = logging.getLogger(__name__)
@@ -243,3 +246,35 @@ class FeedbackClass(FormView):
         mail.mail_admins(subject, message)
 
         return super(FeedbackClass, self).form_valid(form)
+
+@login_required
+def fitbitLogin(request):
+    """View redirects to the fitbit authorization page"""
+    fitbit = FitBit()
+    login_url = fitbit.ComposeAuthorizationuri()
+    return redirect(login_url)
+
+
+@login_required
+def fitbitFetch(request):
+    """View fetches weight data from fitbit"""
+    code = request.GET.get('code')
+    fitbit = FitBit()
+    # exchange access_code for token
+    token = fitbit.RequestAccessToken(code)
+
+    # fetch weight data
+    try:
+        data = fitbit.GetWeight(token)
+        for log in data['body-weight']:
+            weight_entry = WeightEntry()
+            weight_entry.user = request.user
+            weight_entry.weight = log['value']
+            weight_entry.date = dateutil.parser.parse(log['dateTime'])
+            try:
+                weight_entry.save()
+            except Exception as e:
+                pass
+    except Exception as e:
+        return e
+    return HttpResponseRedirect(reverse('core:dashboard'))
