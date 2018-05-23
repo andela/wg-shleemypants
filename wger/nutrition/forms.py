@@ -127,7 +127,8 @@ class MealItemForm(forms.ModelForm):
     ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(),
                                         widget=forms.HiddenInput)
     time = forms.TimeField(required=False,
-                            label=_('Time (approx)'))
+                            label=_('Time (approx)'),
+                            widget=SelectTimeWidget(twelve_hr=True))
 
     class Meta:
         model = MealItem
