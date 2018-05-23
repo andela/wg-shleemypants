@@ -453,10 +453,9 @@ def import_workout(request):
             workout.append(dict(row))
 
         for single_workout in workout:
-
             # extract the workout from the list and save it
             a_workout = Workout(
-                creation_date=single_workout["Date created"],
+                creation_date=single_workout["Date Created"],
                 comment=single_workout["Comment"],
                 user=request.user
                 )
