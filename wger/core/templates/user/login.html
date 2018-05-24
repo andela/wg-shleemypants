@@ -18,16 +18,17 @@
 <h3 class="btn btn-block " >OR</h3>
 
 <h4>{% trans "Login in with your social account" %}</h4>
+<br>
 <p>
-    <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-block btn-default">
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-default">
         <span class="{% fa_class 'google' %}"></span>
         Google
     </a>
-    <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-block btn-default">
+    <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-default">
         <span class="{% fa_class 'twitter' %}"></span>
         Twitter
     </a>
-    <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-block btn-default">
+    <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-default">
         <span class="{% fa_class 'facebook' %}"></span>
         Facebook
     </a>
@@ -39,16 +40,14 @@
 {% block sidebar %}
 <h4>{% trans "No account?" %}</h4>
 <p>
-    <a href="{% url 'core:user:registration' %}" class="btn btn-block btn-default">
-        <span class="{% fa_class 'sign-in' %}"></span>
+    <a href="{% url 'core:user:registration' %}">
         {% trans "Register" %}
     </a>
 </p>
 
 <h4>{% trans "Forgot password?" %}</h4>
 <p>
-    <a href="{% url 'core:user:password_reset' %}" class="btn btn-block btn-default">
-        <span class="{% fa_class 'key' %}"></span>
+    <a href="{% url 'core:user:password_reset' %}" >
         {% trans "Reset password" %}
     </a>
 </p>
