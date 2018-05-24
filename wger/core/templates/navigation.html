@@ -1,7 +1,7 @@
 {% load i18n cache wger_extras %}
 <nav id="nav">
     <div>
-        <div class="navbar {% if flavour == 'full' %}navbar-inverse{% else %}navbar-default{% endif %}">
+        <div class="navbar navbar-expand-lg navbar-light bg-dark">
             <div class="container">
                 <div class="navbar-header" >
                     <a class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#main-navbar-navigation">
@@ -10,13 +10,13 @@
                         <span class="icon-bar"></span>
                     </a>
                 </div>
-                <div class="navbar-collapse {% if flavour == 'full' %}collapse{% endif %}" id="main-navbar-navigation">
+                <div class="collapse navbar-collapse {% if flavour == 'full' %}collapse{% endif %}" id="main-navbar-navigation">
                     <ul class="nav navbar-nav">
                         {#          #}
                         {# User tab #}
                         {#          #}
-                        <li {% if active_tab == 'user' %}class="active"{% endif %}>
-                            <a href="{% url 'core:index' %}">
+                        <li {% if active_tab == 'user' %}class="active nav-item"{% endif %}>
+                            <a href="{% url 'core:index' %}" class="nav-link">
                                 {% if not user.is_authenticated %}
                                     {% trans "Features" %}
                                 {% else %}
@@ -24,8 +24,6 @@
                                 {% endif %}
                             </a>
                         </li>
-
-
                         {#             #}
                         {# Workout tab #}
                         {#             #}
@@ -33,12 +31,12 @@
                         <li class="dropdown {% if active_tab == 'workout' %}active{% endif %}">
                             <a href="{% url 'manager:workout:overview' %}"
                                rel="nofollow"
-                               class="dropdown-toggle"
+                               class="dropdown-toggle nav-link"
                                data-toggle="dropdown">{% trans "Workouts" %} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'manager:workout:overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
-                                <li><a href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% trans "Calendar" %}</a></li>
-                                <li><a href="{% url 'manager:schedule:overview' %}" rel="nofollow">{% trans "Workouts schedules" %}</a></li>
+                                <a href="{% url 'manager:workout:overview' %}" rel="nofollow" class="dropdown-item">{% trans "Workouts" %}</a>
+                                <a href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow" class="dropdown-item">{% trans "Calendar" %}</a>
+                                <a href="{% url 'manager:schedule:overview' %}" rel="nofollow" class="dropdown-item">{% trans "Workouts schedules" %}</a>
                             </ul>
                         </li>
                         {% endif %}
@@ -49,24 +47,24 @@
                         {#               #}
                         <li class="dropdown {% if active_tab == 'exercises' %}active{% endif %}">
                             <a href="{% url 'exercise:exercise:overview' %}"
-                               class="dropdown-toggle"
+                               class="dropdown-toggle nav-link"
                                data-toggle="dropdown">{% trans "Exercises" %} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'exercise:exercise:overview' %}">{% trans "Exercises" %}</a></li>
-                                <li><a href="{% url 'exercise:muscle:overview' %}">{% trans "Muscle overview" %}</a></li>
-                                <li><a href="{% url 'exercise:equipment:overview' %}">{% trans "Equipment overview" %}</a></li>
+                                <li><a href="{% url 'exercise:exercise:overview' %}" class="dropdown-item">{% trans "Exercises" %}</a></li>
+                                <li><a href="{% url 'exercise:muscle:overview' %}" class="dropdown-item">{% trans "Muscle overview" %}</a></li>
+                                <li><a href="{% url 'exercise:equipment:overview' %}" class="dropdown-item">{% trans "Equipment overview" %}</a></li>
                                 {% if user.is_authenticated and not user.userprofile.is_temporary and not trainer_identity %}
                                 <li class="divider"></li>
-                                <li><a href="{% url 'exercise:exercise:add' %}">{% trans "Add new exercise" %}</a><li>
+                                <li><a href="{% url 'exercise:exercise:add' %}" class="dropdown-item">{% trans "Add new exercise" %}</a><li>
                                 {% endif %}
 
                                 {% if perms.exercises %}
                                 <li class="divider"></li>
                                 <li class="dropdown-header">{% trans "Administration" %}</li>
-                                <li><a href="{% url 'exercise:exercise:pending' %}">{% trans "Exercises pending review" %}</a></li>
-                                <li><a href="{% url 'exercise:equipment:list' %}">{% trans "Equipment" %}</a></li>
-                                <li><a href="{% url 'exercise:muscle:admin-list' %}">{% trans "Muscles" %}</a></li>
-                                <li><a href="{% url 'exercise:category:list' %}">{% trans "Categories" %}</a></li>
+                                <li><a href="{% url 'exercise:exercise:pending' %}" class="dropdown-item">{% trans "Exercises pending review" %}</a></li>
+                                <li><a href="{% url 'exercise:equipment:list' %}" class="dropdown-item">{% trans "Equipment" %}</a></li>
+                                <li><a href="{% url 'exercise:muscle:admin-list' %}" class="dropdown-item">{% trans "Muscles" %}</a></li>
+                                <li><a href="{% url 'exercise:category:list' %}" class="dropdown-item">{% trans "Categories" %}</a></li>
                                 {% endif %}
                             </ul>
                         </li>
@@ -79,12 +77,12 @@
                         <li class="dropdown{% if active_tab == 'weight' %} active{% endif %}">
 
                             <a href="{% url 'weight:overview' user.username %}"
-                               class="dropdown-toggle"
+                               class="dropdown-toggle nav-link"
                                data-toggle="dropdown"
                                rel="nofollow">{% trans "Weight" %} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'weight:overview' user.username %}" rel="nofollow">{% trans "Weight overview" %}</a></li>
-                                <li><a href="{% url 'weight:add' %}" rel="nofollow">{% trans "Add weight entry" %}</a></li>
+                                <li><a href="{% url 'weight:overview' user.username %}" rel="nofollow" class="dropdown-item">{% trans "Weight overview" %}</a></li>
+                                <li><a href="{% url 'weight:add' %}" rel="nofollow" class="dropdown-item">{% trans "Add weight entry" %}</a></li>
                             </ul>
                         </li>
                         {% endif %}
@@ -96,19 +94,19 @@
                         {% if user.is_authenticated %}
                         <li class="dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
                             <a href="{% url 'nutrition:plan:overview' %}"
-                               class="dropdown-toggle"
+                               class="dropdown-toggle nav-link"
                                data-toggle="dropdown"
                                rel="nofollow">{% trans "Nutrition" %} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                            <li><a href="{% url 'nutrition:plan:overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
-                            <li><a href="{% url 'nutrition:ingredient:list' %}">{% trans "Ingredient overview" %}</a></li>
-                            <li><a href="{% url 'nutrition:bmi:view' %}" rel="nofollow">{% trans "BMI calculator" %}</a></li>
-                            <li><a href="{% url 'nutrition:calories:view' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
+                            <li><a href="{% url 'nutrition:plan:overview' %}" rel="nofollow" class="dropdown-item">{% trans "Nutrition plans" %}</a></li>
+                            <li><a href="{% url 'nutrition:ingredient:list' %}" class="dropdown-item">{% trans "Ingredient overview" %}</a></li>
+                            <li><a href="{% url 'nutrition:bmi:view' %}" rel="nofollow" class="dropdown-item">{% trans "BMI calculator" %}</a></li>
+                            <li><a href="{% url 'nutrition:calories:view' %}" rel="nofollow" class="dropdown-item">{% trans "Daily calories calculator" %}</a></li>
                             {% if perms.nutrition %}
                                 <li class="divider"></li>
                                 <li class="dropdown-header">{% trans "Administration" %}</li>
-                                <li><a href="{% url 'nutrition:weight_unit:list' %}">{% trans "Ingredient weight units" %}</a></li>
-                                <li><a href="{% url 'nutrition:ingredient:pending' %}">{% trans "Ingredients pending review" %}</a></li>
+                                <li><a href="{% url 'nutrition:weight_unit:list' %}" class="dropdown-item">{% trans "Ingredient weight units" %}</a></li>
+                                <li><a href="{% url 'nutrition:ingredient:pending' %}" class="dropdown-item">{% trans "Ingredients pending review" %}</a></li>
                             {% endif %}
                             </ul>
                         </li>
@@ -120,30 +118,30 @@
                         {#              #}
                         <li class="dropdown {% if active_tab == 'software' %}active{% endif %}">
                             <a href=""
-                               class="dropdown-toggle"
+                               class="dropdown-toggle nav-link"
                                data-toggle="dropdown">{% trans "About this software" %} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'software:features' %}">{% trans "Features" %}</a></li>
-                                <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
-                                <li><a href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>
-                                <li><a href="{% url 'software:tos' %}">{% trans "Terms of service" %} </a></li>
+                                <li><a href="{% url 'software:features' %}" class="dropdown-item">{% trans "Features" %}</a></li>
+                                <li><a href="{% url 'software:contribute' %}" class="dropdown-item">{% trans "Contribute!" %} </a></li>
+                                <li><a href="{% url 'software:issues' %}" class="dropdown-item">{% trans "Problems and wishes" %} </a></li>
+                                <li><a href="{% url 'software:tos' %}" class="dropdown-item">{% trans "Terms of service" %} </a></li>
                                 <li class="divider"></li>
-                                <li><a href="{% url 'software:api' %}">{% trans "REST API" %} </a></li>
-                                <li><a href="{% url 'software:license' %}">{% trans "License" %} </a></li>
+                                <li><a href="{% url 'software:api' %}" class="dropdown-item">{% trans "REST API" %} </a></li>
+                                <li><a href="{% url 'software:license' %}" class="dropdown-item">{% trans "License" %} </a></li>
                                 <li>
-                                    <a href="https://wger.readthedocs.io/">
+                                    <a href="https://wger.readthedocs.io/" class="dropdown-item">
                                         <span class="fa fa-external-link" aria-hidden="true"></span>
                                         {% trans "Developer documentation" %}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://github.com/wger-project/wger">
+                                    <a href="https://github.com/wger-project/wger" class="dropdown-item">
                                         <span class="fa fa-external-link" aria-hidden="true"></span>
                                         {% trans "Get the code" %} (Github)
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://translate.zanata.org/iteration/view/5687/v1?dswid=-6293">
+                                    <a href="https://translate.zanata.org/iteration/view/5687/v1?dswid=-6293" class="dropdown-item">
                                         <span class="fa fa-external-link" aria-hidden="true"></span>
                                         {% trans "Translate with Zanata" %}
                                     </a>
@@ -154,8 +152,8 @@
                         {#                     #}
                         {# comparison graphs   #}
                         {#                     #}
-                        <li>
-                            <a href="{% url 'core:comparison'%}">
+                        <li class="nav-item">
+                            <a href="{% url 'core:comparison'%}" class="nav-link">
                                 {% if not user.is_authenticated %}
                                 {% trans "Comparison" %}
                                 {% else %}
@@ -169,16 +167,16 @@
                         {#                     #}
                         <li class="dropdown visible-xs-block visible-sm-block">
                             <a href=""
-                               class="dropdown-toggle"
+                               class="dropdown-toggle nav-link"
                                data-toggle="dropdown">{% trans "Options" %} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
 
                                 {# Contact #}
-                                <li><a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
-                                <li><a href="{% url 'core:about' %}">{% trans "About" %}</a></li>
+                                <li><a href="{% url 'core:contact' %}" class="dropdown-item">{% trans "Get in touch" %}</a></li>
+                                <li><a href="{% url 'core:about' %}" class="dropdown-item">{% trans "About" %}</a></li>
 
                                 {# Language #}
-                                <li><a href="#language-options" data-toggle="modal">{% trans "Language" %}</a></li>
+                                <li><a href="#language-options" data-toggle="modal" class="dropdown-item">{% trans "Language" %}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -191,32 +189,32 @@
                         <ul class="nav navbar-nav pull-right">
                             <li class="divider-vertical"></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                                     {% trans "Login" %} / {% trans "Register" %}
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url 'core:user:login' %}">{% trans "Login" %}</a></li>
-                                    <li><a href="{% url 'core:user:registration' %}">{% trans "Register" %}</a></li>
-                                    <li><a href="{% url 'core:user:password_reset' %}">{% trans "Reset password" %}</a></li>
+                                    <li><a href="{% url 'core:user:login' %}" class="dropdown-item">{% trans "Login" %}</a></li>
+                                    <li><a href="{% url 'core:user:registration' %}" class="dropdown-item">{% trans "Register" %}</a></li>
+                                    <li><a href="{% url 'core:user:password_reset' %}" class="dropdown-item">{% trans "Reset password" %}</a></li>
                                 </ul>
                             </li>
                         </ul>
                     {% else %}
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                                     {{user|format_username}}
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{% url 'core:user:preferences' %}">{% trans "My preferences" %}</a>
+                                        <a href="{% url 'core:user:preferences' %}" class="dropdown-item">{% trans "My preferences" %}</a>
                                     </li>
                                     {% if not trainer_identity %}
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="{% url 'core:user:logout' %}">
+                                        <a href="{% url 'core:user:logout' %}" class="dropdown-item">
                                             <span class="{% fa_class 'sign-out' %}"></span>
                                             {% trans "Logout" %}
                                         </a>
@@ -230,26 +228,26 @@
                                         <li class="divider"></li>
                                         <li class="dropdown-header">{% trans "Administration" %}</li>
                                         {% if perms.core.change_language %}
-                                            <li><a href="{% url 'core:language:overview' %}">{% trans "Languages" %} </a></li>
+                                            <li><a href="{% url 'core:language:overview' %}" class="dropdown-item">{% trans "Languages" %} </a></li>
                                         {% endif %}
                                         {% if perms.core.change_license %}
-                                            <li><a href="{% url 'core:license:list' %}">{% trans "Licenses" %} </a></li>
+                                            <li><a href="{% url 'core:license:list' %}" class="dropdown-item">{% trans "Licenses" %} </a></li>
                                         {% endif %}
                                         {% if perms.core.change_repetitionunit %}
-                                            <li><a href="{% url 'core:repetition-unit:list' %}">{% trans "Repetition units" %} </a></li>
+                                            <li><a href="{% url 'core:repetition-unit:list' %}" class="dropdown-item">{% trans "Repetition units" %} </a></li>
                                         {% endif %}
                                         {% if perms.core.change_weightunit %}
-                                            <li><a href="{% url 'core:weight-unit:list' %}">{% trans "Weight units" %} </a></li>
+                                            <li><a href="{% url 'core:weight-unit:list' %}" class="dropdown-item">{% trans "Weight units" %} </a></li>
                                         {% endif %}
                                         {% if perms.gym.manage_gyms %}
-                                            <li><a href="{% url 'core:user:list' %}">{% trans "User list" %} </a></li>
-                                            <li><a href="{% url 'gym:gym:list' %}">{% trans "Gyms" %} </a></li>
+                                            <li><a href="{% url 'core:user:list' %}" class="dropdown-item">{% trans "User list" %} </a></li>
+                                            <li><a href="{% url 'gym:gym:list' %}" class="dropdown-item">{% trans "Gyms" %} </a></li>
                                         {% endif  %}
 
                                         {# it's not possible to group expressions '(a or b) and c' #}
                                         {% if perms.gym.gym_trainer or perms.gym.manage_gym %}
                                         {% if user.userprofile.gym %}
-                                            <li><a href="{% url 'gym:gym:user-list' user.userprofile.gym.pk %}">{{user.userprofile.gym}}</a></li>
+                                            <li><a href="{% url 'gym:gym:user-list' user.userprofile.gym.pk %}" class="dropdown-item">{{user.userprofile.gym}}</a></li>
                                         {% endif  %}
                                         {% endif  %}
                                     {% endif  %}
