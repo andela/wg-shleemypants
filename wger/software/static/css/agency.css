@@ -280,12 +280,14 @@ header {
 
 .cs-slide-content {
     position: relative;
-    top:-104%;
-    /*    background: rgba(0, 0, 0, 0.5);*/
-    color: #f1f1f1;
-    width: 75%;
-    margin: 10.5% 12.5% 0 12.5%;
+    top: -104%;
+    background: rgba(0, 0, 0, 0.65);
+    color: #e9ecef;
+    width: 101%;
+    margin: -1.5% 12.5% -16% -0.5%;
     text-align: center;
+    padding-top: 140px;
+    height: 106%;
 }
 
 .cs-features {
