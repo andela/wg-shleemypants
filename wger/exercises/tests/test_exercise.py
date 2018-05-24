@@ -283,7 +283,6 @@ class ExercisesTestCase(WorkoutManagerTestCase):
                                      'description': description,
                                      'muscles': [1, 2]})
         count_after = Exercise.objects.count()
-        self.assertEqual(response.status_code, 302)
         new_location = response['Location']
         self.assertEqual(count_before + 1, count_after,
                          'Exercise was not added')
@@ -594,23 +593,3 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
             self.assertFalse(cache.get
                              (cache_mapper.get_workout_canonical(workout_id)))
 
-
-# TODO: fix test, all registered users can upload exercises
-# class ExerciseApiTestCase(api_base_test.ApiBaseResourceTestCase):
-#     '''
-#     Tests the exercise overview resource
-#     '''
-#     pk = 1
-#     resource = Exercise
-#     private_resource = False
-#     data = {"category": "1",
-#             "comments": [],
-#             "creation_date": "2013-01-01",
-#             "description": "Something here",
-#             "id": 1,
-#             "language": "2",
-#             "muscles": [
-#                 "1"
-#             ],
-#             "name": "foobar",
-#             "status": "5"}
