@@ -267,28 +267,6 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.add_exercise_user_fail()
         self.user_logout()
 
-    def add_exercise_success(self, admin=False):
-        '''
-        Tests adding/editing an exercise with a user with enough \
-        rights to do this
-        '''
-
-        # Add an exercise
-        count_before = Exercise.objects.count()
-        description = 'a nice, long and accurate description for the exercise'
-        response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'category': 2,
-                                     'name_original': 'my test exercise',
-                                     'license': 1,
-                                     'description': description,
-                                     'muscles': [1, 2]})
-        count_after = Exercise.objects.count()
-        self.assertEqual(count_before + 1, count_after,
-                         'Exercise was not added')
-
-        response = self.client.get(new_location)
-        exercise_id = response.context['exercise'].id
-
         # Exercise was saved
         exercise = Exercise.objects.get(pk=exercise_id)
         if admin:
