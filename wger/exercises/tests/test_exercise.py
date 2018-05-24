@@ -283,7 +283,6 @@ class ExercisesTestCase(WorkoutManagerTestCase):
                                      'description': description,
                                      'muscles': [1, 2]})
         count_after = Exercise.objects.count()
-        new_location = response['Location']
         self.assertEqual(count_before + 1, count_after,
                          'Exercise was not added')
 
