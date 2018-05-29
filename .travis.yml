@@ -57,8 +57,6 @@ script:
   # - pep8 wger
   - python manage.py makemigrations --merge --no-input
   # Javascript linting
-  - gulp lint
-
   # Regular application
   - coverage run --source='.' ./manage.py test
 
