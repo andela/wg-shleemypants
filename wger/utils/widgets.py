@@ -190,12 +190,12 @@ class CheckboxFieldRendererTranslatedOriginal(ChoiceFieldRenderer):
 
 class CheckboxBootstrapRenderer(CheckboxFieldRendererTranslated):
     outer_html = u'<div{id_attr}>{content}</div>'
-    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
+    inner_html = u'<div class="">{choice_value}{sub_widgets}</div>'
 
 
 class CheckboxBootstrapRendererTranslatedOriginal(CheckboxFieldRendererTranslatedOriginal):
     outer_html = u'<div{id_attr}>{content}</div>'
-    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
+    inner_html = u'<div class="">{choice_value}{sub_widgets}</div>'
 
 
 class BootstrapSelectMultiple(CheckboxSelectMultiple):

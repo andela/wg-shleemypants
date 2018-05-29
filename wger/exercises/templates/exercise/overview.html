@@ -126,7 +126,7 @@ $(document).ready(function() {
 
 {% block options %}
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
-        <a href="{% url 'exercise:exercise:add' %}" class="btn btn-success btn-sm">
+        <a href="{% url 'exercise:exercise:add' %}" class="btn btn-outline-success">
             {% trans "Add new exercise" %}
         </a>
     {% else %}

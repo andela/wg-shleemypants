@@ -17,8 +17,8 @@
                 </span>
                 {% endif %}
 
-                <h4 class="list-group-item-heading">{{ workout }}</h4>
-                <p class="list-group-item-text">{{ workout.creation_date }}</p>
+                <h4 class="list-group-item">{{ workout }}</h4>
+                <p class="list-group-item">{{ workout.creation_date }}</p>
             </a>
         {% empty %}
             <a href="{% url 'manager:workout:add' %}" class="list-group-item">
@@ -30,7 +30,7 @@
 
 
 {% block options %}
-<a href="{% url 'manager:workout:add' %}" class="btn btn-success btn-sm">
+<a href="{% url 'manager:workout:add' %}" class="btn btn-outline-success">
     {% trans "Add workout" %}
 </a>
 <div class="modal fade" id="export_workout">
@@ -56,7 +56,7 @@
              </div>
          </div>
 </div>
-<a data-toggle="modal" data-target="#export_workout" class="btn btn-default btn-sm">
+<a data-toggle="modal" data-target="#export_workout" class="btn btn-outline-dark">
      {% trans "Import Workouts" %}
 </a>
 {% endblock %}
