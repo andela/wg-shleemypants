@@ -25,10 +25,10 @@
  */
 function wgerHighlightMuscle(element) {
   var $muscle;
-  
+
   var divId;
   divId = $(element).data('target');
- 
+
 
   // Reset all other highlighted muscles
   $muscle = $('.muscle');
