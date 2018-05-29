@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+<br>
 <form action="{% url 'core:user:login' %}{% if next %}?next={{next}}{% endif %}"
       method="post"
       class="form-horizontal">
@@ -15,10 +16,9 @@
     {% render_form_fields form submit_text %}
 </form>
 
-<h5>OR</h5>
 
-<h4>{% trans "Login in with your social account" %}</h4>
 <br>
+<p>{% trans "Login in with your social account" %}</p>
 <p>
     <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-default" style='background-color: #db3236; color: white;'>
         <span class="{% fa_class 'google' %}"></span>
