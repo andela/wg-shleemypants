@@ -214,7 +214,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {#         #}
 {% block options %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>
@@ -232,7 +232,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
             </a>
         </li>
         <li>
-            <a href='{% url 'manager:workout:export_workouts' workout.id %}'>
+            <a href='{% url 'manager:workout:export_workouts' workout.id %}' class="dropdown-item">
                 <span class="{% fa_class 'download' %}"></span>
                 {% trans "Export workout" %}
             </a>
@@ -246,7 +246,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
         </li>
         {% endif %}
         <li>
-            <a data-toggle="modal" data-target="#export-ical-popup">
+            <a data-toggle="modal" data-target="#export-ical-popup" class="dropdown-item">
                <span class="{% fa_class 'calendar' %}"></span>
                {% trans "Export calendar file" %}
             </a>
