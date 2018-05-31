@@ -54,3 +54,59 @@
     }
   ]
 }
+=======
+    "name": "wg-shleemypants",
+    "scripts": {
+    },
+    "env": {
+      "Authorization": {
+        "required": true
+      },
+      "AUTHORIZE_URI": {
+        "required": true
+      },
+      "CLIENT_ID": {
+        "required": true
+      },
+      "CLIENT_SECRET": {
+        "required": true
+      },
+      "REDIRECT_URI": {
+        "required": true
+      },
+      "SCOPE": {
+        "required": true
+      },
+      "SOCIAL_AUTH_FACEBOOK_KEY": {
+        "required": true
+      },
+      "SOCIAL_AUTH_FACEBOOK_SECRET": {
+        "required": true
+      },
+      "SOCIAL_AUTH_GOOGLE_OAUTH2_KEY": {
+        "required": true
+      },
+      "SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET": {
+        "required": true
+      },
+      "SOCIAL_AUTH_TWITTER_KEY": {
+        "required": true
+      },
+      "url": {
+        "required": true
+      }
+    },
+    "formation": {
+    },
+    "addons": [
+  
+    ],
+    "buildpacks": [
+      {
+        "url": "heroku/nodejs"
+      },
+      {
+        "url": "https://github.com/LarryWachira/wger-buildpack-python"
+      }
+    ]
+  }
