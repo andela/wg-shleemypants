@@ -160,6 +160,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     Model for an exercise
     '''
 
+    author = models.ForeignKey(User,
+                               max_length=50,
+                               blank=True,
+                               null=True,
+                               verbose_name=_('Exercise Author'))
     objects = SubmissionManager()
     '''Custom manager'''
 
@@ -173,6 +178,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'))
     '''The exercise's name, with correct upercase'''
+
+    video_url = models.URLField(max_length=2000,
+                                 blank=True,
+                            verbose_name=_('Video'))
+    '''An accompanying video on how to perform the exercise'''
 
     name_original = models.CharField(max_length=200,
                                      verbose_name=_('Name'),

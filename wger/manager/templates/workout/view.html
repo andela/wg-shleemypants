@@ -214,39 +214,45 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {#         #}
 {% block options %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>
     <ul class="dropdown-menu">
         <li>
-            <a data-toggle="modal" data-target="#download-pdf-popup">
+            <a data-toggle="modal" data-target="#download-pdf-popup" class="dropdown-item">
                 <span class="{% fa_class 'download' %}"></span>
                 {% trans "Download as PDF" %}
             </a>
         </li>
         <li>
-            <a href="{% url 'manager:log:log' workout.id %}">
+            <a href="{% url 'manager:log:log' workout.id %}" class="dropdown-item">
                <span class="{% fa_class 'line-chart' %}"></span>
                {% trans "View weight log" %}
             </a>
         </li>
+        <li>
+            <a href='{% url 'manager:workout:export_workouts' workout.id %}' class="dropdown-item">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Export workout" %}
+            </a>
+        </li>
         {% if is_owner %}
         <li>
-            <a href="{% url 'manager:workout:edit' workout.id %}" class="wger-modal-dialog">
+            <a href="{% url 'manager:workout:edit' workout.id %}" class="dropdown-item">
                <span class="{% fa_class 'pencil-square-o' %}"></span>
                {% trans "Edit workout" %}
             </a>
         </li>
         {% endif %}
         <li>
-            <a data-toggle="modal" data-target="#export-ical-popup">
+            <a data-toggle="modal" data-target="#export-ical-popup" class="dropdown-item">
                <span class="{% fa_class 'calendar' %}"></span>
                {% trans "Export calendar file" %}
             </a>
         </li>
         <li>
-            <a href="{% url 'manager:workout:copy' workout.id %}" class="wger-modal-dialog">
+            <a href="{% url 'manager:workout:copy' workout.id %}" class="dropdown-item">
                <span class="{% fa_class 'clone' %}"></span>
                {% trans "Make a copy of this workout" %}
             </a>
@@ -254,7 +260,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
         {% if is_owner %}
         <li role="separator" class="divider"></li>
         <li>
-            <a href="{% url 'manager:workout:delete' workout.id %}" class="wger-modal-dialog">
+            <a href="{% url 'manager:workout:delete' workout.id %}" class="dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
                 {% trans "Delete this workout" %}
             </a>

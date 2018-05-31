@@ -25,12 +25,10 @@
  */
 function wgerHighlightMuscle(element) {
   var $muscle;
-  var muscleId;
-  var isFront;
+
   var divId;
   divId = $(element).data('target');
-  isFront = ($(element).data('isFront') === 'True') ? 'front' : 'back';
-  muscleId = divId.match(/\d+/);
+
 
   // Reset all other highlighted muscles
   $muscle = $('.muscle');
@@ -41,10 +39,6 @@ function wgerHighlightMuscle(element) {
   $(element).removeClass('muscle-inactive');
   $(element).addClass('muscle-active');
 
-  // Set the corresponding background
-  $('#muscle-system').css('background-image',
-    'url(/static/images/muscles/main/muscle-' + muscleId + '.svg),' +
-    'url(/static/images/muscles/muscular_system_' + isFront + '.svg)');
 
   // Show the corresponding exercises
   $('.exercise-list').hide();

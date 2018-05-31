@@ -49,9 +49,12 @@ from wger.utils.generic_views import WgerFormMixin, WgerDeleteMixin
 from wger.utils.helpers import check_token, make_token
 from wger.utils.pdf import styleSheet
 from wger.utils.language import load_language
+from django.core.cache import cache
 
 
 logger = logging.getLogger(__name__)
+
+QUEUE_KEY = "queue"
 
 
 # ************************
@@ -61,13 +64,21 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def overview(request):
-    template_data = {}
-    template_data.update(csrf(request))
+    #check if the queue_key exists
+    cached_queue = cache.get(QUEUE_KEY)
+    if not cached_queue:
+        #nothing cached, 
+        template_data = {}
+        template_data.update(csrf(request))
 
-    plans = NutritionPlan.objects.filter(user=request.user)
-    template_data['plans'] = plans
+        plans = NutritionPlan.objects.filter(user=request.user)
+        template_data['plans'] = plans
+        cached_queue = template_data
+    #cache contains data
+    cached_queue = {'queue': cached_queue}
+    cached_queue.update(csrf(request))
 
-    return render(request, 'plan/overview.html', template_data)
+    return render(request, 'plan/overview.html', cached_queue)
 
 
 @login_required

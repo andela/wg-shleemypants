@@ -16,6 +16,7 @@
 
 import re
 import sys
+import dj_database_url
 
 '''
 This file contains the global settings that don't usually need to be changed.
@@ -28,17 +29,39 @@ import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
+DATABASES = {
+    'default': {
+        'ENGINE': '',
+        'USER': '',
+        'NAME': '',
+        'TEST': {
+            'CHARSET': 'UTF8'
+        }
+    }
+}
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
 #
 # Application definition
 #
 SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY') 
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY') 
+SOCIAL_AUTH_FACEBOOK_SECRET =os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET') 
 
-#socail authentication keys
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '785741301455-8jvpvull5c9fk2ouneo1s1mfm3q9u0n7.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'evqb1eRw5dcuuu714UGooniU'
+SOCIAL_AUTH_TWITTER_KEY =os.getenv('SOCIAL_AUTH_TWITTER_KEY')
+SOCIAL_AUTH_TWITTER_SECRET = os.getenv('SOCIAL_AUTH_TWITTER_SECRET')
+
+#django debug
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+INTERNAL_IPS = ('127.0.0.1',)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -47,9 +70,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    #enable social login
+    # enable social login
     'social_django',
+
+    #django debug
+    'debug_toolbar',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -121,6 +146,9 @@ MIDDLEWARE_CLASSES = (
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
 
+    #django debug
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
 
@@ -134,23 +162,23 @@ MIDDLEWARE_CLASSES = (
     # Django mobile
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
+
+    # social django middleware
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
-    
     # For Facebook Authentication
     'social_core.backends.facebook.FacebookOAuth2',
-
-    # For Twitter Authentication
+    # twitter
     'social_core.backends.twitter.TwitterOAuth',
 
-    # For Google Authentication
-    # 'social_core.backends.google.GoogleOpenId',
-    'social_core.backends.google.GoogleOAuth2',
-    # 'social_core.backends.google.GoogleOAuth',
-    #default wger authentication
+    # google authentication
+     'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
     'django.contrib.auth.backends.ModelBackend',
-    'wger.utils.helpers.EmailAuthBackend',
+    'wger.utils.helpers.EmailAuthBackend'
 )
 
 TEMPLATES = [
@@ -169,9 +197,9 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                #for socail logins
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+                #social logins
+                'social_django.context_processors.backends', 
+                'social_django.context_processors.login_redirect', 
 
                 # Django mobile
                 'django_mobile.context_processors.flavour',
@@ -194,6 +222,7 @@ TEMPLATES = [
 # Store the user messages in the session
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -203,7 +232,6 @@ STATICFILES_FINDERS = (
     # Django compressor
     'compressor.finders.CompressorFinder',
 )
-
 
 #
 # Email
@@ -329,13 +357,8 @@ THUMBNAIL_ALIASES = {
     },
 }
 
-
-#
-# Django compressor
-#
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
 COMPRESS_CSS_FILTERS = (

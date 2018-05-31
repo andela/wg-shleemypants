@@ -8,30 +8,46 @@
 {% endblock %}
 
 {% block content %}
+<br>
 <form action="{% url 'core:user:login' %}{% if next %}?next={{next}}{% endif %}"
       method="post"
       class="form-horizontal">
     {% trans 'Login' as submit_text %}
     {% render_form_fields form submit_text %}
 </form>
-<p> OR</p>
-<a href="{% url 'social:begin' 'google-oauth2' %}">Google+</a>
+
+
+<br>
+<p>{% trans "Login in with your social account" %}</p>
+<p>
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-default" style='background-color: #db3236; color: white;'>
+        <span class="{% fa_class 'google' %}"></span>
+        Google
+    </a>
+    <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-default" style='background-color: #55ACEE; color: white;'>
+        <span class="{% fa_class 'twitter' %}"></span>
+        Twitter
+    </a>
+    <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-default" style='background-color:  #3B5998; color: white;'>
+        <span class="{% fa_class 'facebook' %}"></span>
+        Facebook
+    </a>
+</p>
+
 {% endblock %}
 
 
 {% block sidebar %}
 <h4>{% trans "No account?" %}</h4>
 <p>
-    <a href="{% url 'core:user:registration' %}" class="btn btn-block btn-default">
-        <span class="{% fa_class 'sign-in' %}"></span>
+    <a href="{% url 'core:user:registration' %}">
         {% trans "Register" %}
     </a>
 </p>
 
 <h4>{% trans "Forgot password?" %}</h4>
 <p>
-    <a href="{% url 'core:user:password_reset' %}" class="btn btn-block btn-default">
-        <span class="{% fa_class 'key' %}"></span>
+    <a href="{% url 'core:user:password_reset' %}" >
         {% trans "Reset password" %}
     </a>
 </p>

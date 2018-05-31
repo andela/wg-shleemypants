@@ -22,6 +22,7 @@ wg-env/
 *.egg-info/
 .installed.cfg
 *.egg
+wg-env/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -60,6 +61,9 @@ target/
 # IDE
 .idea/
 .vscode/
+
+#enviroment variables
+.env
 
 # External Libraries
 wger/core/static/bower_components

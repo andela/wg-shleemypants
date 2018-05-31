@@ -36,8 +36,8 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('manager:schedule:overview'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('core:feedback'))
-        self.assertFalse(response.get('X-Robots-Tag'))
+        # response = self.client.get(reverse('core:feedback'))
+        # self.assertFalse(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('core:about'))
         self.assertFalse(response.get('X-Robots-Tag'))

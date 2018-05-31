@@ -201,9 +201,16 @@ urlpatterns = [
         misc.FeedbackClass.as_view(),
         name='feedback'),
 
+    #comparison
+    url(r'^comparison$', misc.comparison, name='comparison'),
+
     url(r'^language/', include(patterns_language, namespace="language")),
     url(r'^user/', include(patterns_user, namespace="user")),
     url(r'^license/', include(patterns_license, namespace="license")),
     url(r'^repetition-unit/', include(patterns_repetition_units, namespace="repetition-unit")),
     url(r'^weight-unit/', include(patterns_weight_units, namespace="weight-unit")),
+
+     # Fitbit
+    url(r'^fitbit/login', misc.fitbitLogin, name="fitbit-login"),
+    url(r'^fitbit/fetch', misc.fitbitFetch, name="fitbit-fetch"),
 ]
