@@ -38,7 +38,7 @@ class AbstractLicenseModel(models.Model):
                                 default=2)
     '''The item's license'''
 
-    license_author = models.CharField(verbose_name=_('Author'),
+    license_author = models.CharField(verbose_name=_('License Author'),
                                       max_length=50,
                                       blank=True,
                                       null=True,

@@ -160,6 +160,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     Model for an exercise
     '''
 
+    author = models.ForeignKey(User,
+                               max_length=50,
+                               blank=True,
+                               null=True,
+                               verbose_name=_('Exercise Author'))
     objects = SubmissionManager()
     '''Custom manager'''
 
